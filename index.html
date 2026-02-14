@@ -3,181 +3,212 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hair by Selo | Premium Men's Grooming</title>
+<title>Hair by Selo | Modern Grooming Studio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
 :root{
-  --gold:#C6A75E;
-  --white:#ffffff;
-  --cream:#f8f6f2;
-  --beige:#ece6db;
-  --text:#222;
+  --bg:#F4F2EE;
+  --card:#FFFFFF;
+  --dark:#1F1F1F;
+  --muted:#6B6B6B;
+  --gold:#B89C4B;
+  --border:#E5E2DA;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-  font-family:'Poppins',sans-serif;
-  background:var(--cream);
-  color:var(--text);
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  scroll-behavior:smooth;
 }
 
-section{padding:70px 8%;}
+section{padding:90px 8%;}
+
+h1,h2,h3{
+  font-family:'Playfair Display',serif;
+  letter-spacing:.5px;
+}
+
+.container{max-width:1400px;margin:auto;}
 
 /* HEADER */
 header{
-  background:var(--white);
-  padding:15px 8%;
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:22px 8%;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid var(--beige);
+  background:transparent;
+  transition:.3s;
+  z-index:1000;
 }
 
-.logo img{
-  height:55px;
-  width:auto;
+header.scrolled{
+  background:var(--card);
+  border-bottom:1px solid var(--border);
+  padding:15px 8%;
 }
+
+.logo img{height:50px;}
 
 nav ul{
-  list-style:none;
   display:flex;
-  gap:28px;
+  list-style:none;
+  gap:32px;
 }
 
 nav a{
   text-decoration:none;
-  color:#333;
+  color:var(--dark);
   font-weight:500;
+  position:relative;
 }
 
-nav a:hover{
-  color:var(--gold);
+nav a:after{
+  content:"";
+  position:absolute;
+  bottom:-6px;
+  left:0;
+  width:0%;
+  height:2px;
+  background:var(--gold);
+  transition:.3s;
 }
+
+nav a:hover:after{width:100%;}
 
 /* HERO */
 .hero{
-  background:url("hero.jpg") center/cover no-repeat;
-  height:85vh;
-  display:flex;
+  padding-top:140px;
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
   align-items:center;
-  padding:0 8%;
-  color:#fff;
+  gap:60px;
 }
 
-.hero-content{
-  max-width:500px;
-}
-
-.hero h1{
-  font-family:'Cinzel',serif;
-  font-size:46px;
+.hero-text h1{
+  font-size:64px;
   margin-bottom:25px;
 }
 
-.btn{
-  background:var(--gold);
-  color:#fff;
-  padding:14px 28px;
-  text-decoration:none;
-  font-weight:500;
-  display:inline-block;
+.hero-text p{
+  color:var(--muted);
+  margin-bottom:30px;
+  font-size:18px;
 }
 
-/* SECTION TITLE */
-.section-title{
-  text-align:center;
-  font-family:'Cinzel',serif;
-  font-size:32px;
-  margin-bottom:45px;
+.btn-primary{
+  background:var(--gold);
+  color:#fff;
+  padding:15px 32px;
+  text-decoration:none;
+  font-weight:500;
+  margin-right:15px;
+}
+
+.btn-outline{
+  border:1px solid var(--dark);
+  padding:15px 32px;
+  text-decoration:none;
+  color:var(--dark);
+}
+
+.hero img{
+  width:100%;
 }
 
 /* SERVICES */
 .services{
-  display:flex;
-  gap:25px;
-  overflow-x:auto;
-  padding-bottom:10px;
-}
-
-.services::-webkit-scrollbar{
-  height:6px;
-}
-.services::-webkit-scrollbar-thumb{
-  background:var(--gold);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
 }
 
 .service-card{
-  min-width:220px;
-  background:var(--white);
-  padding:30px;
-  text-align:center;
+  background:var(--card);
+  padding:35px;
+  border:1px solid var(--border);
+  transition:.3s;
+}
+
+.service-card:hover{
   border:1px solid var(--gold);
-  flex-shrink:0;
 }
 
 .service-card i{
-  font-size:30px;
+  font-size:28px;
   color:var(--gold);
   margin-bottom:15px;
 }
 
 .service-card h4{
-  font-weight:600;
+  margin-bottom:12px;
 }
 
-/* PRICING */
-.pricing-grid{
+/* PACKAGES */
+.packages{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  grid-template-columns:repeat(3,1fr);
   gap:30px;
 }
 
-.price-box{
-  background:var(--white);
-  padding:30px;
-  border:1px solid var(--beige);
+.package{
+  background:var(--card);
+  padding:40px;
+  border:1px solid var(--border);
 }
 
-.price-box h4{
-  margin-bottom:20px;
+.package.highlight{
+  border:1px solid var(--gold);
 }
 
-.price-item{
-  display:flex;
-  justify-content:space-between;
-  padding:10px 0;
-  border-bottom:1px solid var(--beige);
+.package h3{margin-bottom:15px;}
+.price{
+  font-size:42px;
+  margin:20px 0;
 }
 
-/* REVIEWS */
-.review-grid{
+.package ul{
+  list-style:none;
+  margin-bottom:25px;
+}
+
+.package ul li{
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+/* PROCESS */
+.process{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns:repeat(4,1fr);
   gap:30px;
 }
 
-.review{
-  background:var(--white);
-  padding:25px;
-  border:1px solid var(--beige);
+.step{
+  text-align:center;
 }
 
-.stars{
+.step i{
+  font-size:30px;
   color:var(--gold);
-  margin:12px 0;
+  margin-bottom:15px;
 }
 
 /* BEFORE AFTER */
 .before-after{
   position:relative;
-  max-width:750px;
-  margin:0 auto;
+  max-width:1000px;
+  margin:auto;
   overflow:hidden;
 }
 
@@ -186,7 +217,7 @@ nav a:hover{
   display:block;
 }
 
-.after-img{
+.after{
   position:absolute;
   top:0;
   left:0;
@@ -198,64 +229,93 @@ nav a:hover{
   position:absolute;
   top:0;
   left:50%;
-  width:4px;
+  width:3px;
   height:100%;
   background:var(--gold);
   cursor:ew-resize;
 }
 
-/* FOOTER */
-footer{
-  background:var(--white);
-  padding:40px 8%;
-  border-top:1px solid var(--gold);
-}
-
-.footer-content{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:space-between;
+/* REVIEWS */
+.reviews{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
   gap:30px;
 }
 
-.whatsapp-btn{
-  background:var(--gold);
-  padding:12px 20px;
+.review{
+  background:var(--card);
+  padding:30px;
+  border:1px solid var(--border);
+}
+
+.stars{
+  color:var(--gold);
+  margin:10px 0;
+}
+
+/* CTA */
+.cta{
+  background:var(--dark);
   color:#fff;
+  text-align:center;
+  padding:80px 8%;
+}
+
+.cta a{
+  background:var(--gold);
+  padding:15px 35px;
   text-decoration:none;
+  color:#fff;
   display:inline-block;
+  margin-top:25px;
+}
+
+/* FOOTER */
+footer{
+  background:var(--card);
+  padding:60px 8%;
+  border-top:1px solid var(--gold);
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:40px;
 }
 
 .social i{
   margin-right:12px;
   color:var(--gold);
-  font-size:18px;
 }
 
 /* MOBILE */
-@media(max-width:768px){
+@media(max-width:1000px){
 
-  nav ul{
-    gap:15px;
-    font-size:14px;
-  }
+.hero{
+  grid-template-columns:1fr;
+  gap:40px;
+}
 
-  .hero{
-    height:65vh;
-  }
+.services{
+  grid-template-columns:repeat(2,1fr);
+}
 
-  .hero h1{
-    font-size:32px;
-  }
+.packages{
+  grid-template-columns:1fr;
+}
 
-  header{
-    flex-direction:column;
-    gap:10px;
-  }
+.process{
+  grid-template-columns:repeat(2,1fr);
+}
 
-  .footer-content{
-    flex-direction:column;
-  }
+.reviews{
+  grid-template-columns:1fr;
+}
+
+nav ul{
+  gap:15px;
+  font-size:14px;
+}
 
 }
 
@@ -264,93 +324,143 @@ footer{
 
 <body>
 
-<header>
+<header id="header">
   <div class="logo">
-    <img src="logo.png" alt="Hair by Selo Logo">
+    <img src="logo.png">
   </div>
   <nav>
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">Services</a></li>
-      <li><a href="#">Grooming</a></li>
+      <li><a href="#">Work</a></li>
       <li><a href="#">Reviews</a></li>
-      <li><a href="#">Book Now</a></li>
+      <li><a href="#">Book</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
   </nav>
 </header>
 
-<section class="hero">
-  <div class="hero-content">
-    <h1>Refine Your Look</h1>
-    <a href="#" class="btn">Book Appointment</a>
+<section class="hero container">
+  <div class="hero-text">
+    <h1>Refined Modern Grooming</h1>
+    <p>Precision cuts, structured beard styling, and elevated grooming experience designed for the modern man.</p>
+    <a href="#" class="btn-primary">Book Appointment</a>
+    <a href="#" class="btn-outline">View Services</a>
   </div>
+  <img src="hero.jpg">
 </section>
 
-<section>
-  <h2 class="section-title">Our Services</h2>
-  <div class="services">
-    <div class="service-card"><i class="fa-solid fa-scissors"></i><h4>Haircut</h4></div>
-    <div class="service-card"><i class="fa-solid fa-beard"></i><h4>Beard Styling</h4></div>
-    <div class="service-card"><i class="fa-solid fa-face-smile"></i><h4>Facial</h4></div>
-    <div class="service-card"><i class="fa-solid fa-pump-soap"></i><h4>Hair Treatment</h4></div>
-    <div class="service-card"><i class="fa-solid fa-head-side-mask"></i><h4>Head Massage</h4></div>
-  </div>
+<section class="container">
+<h2>Our Expertise</h2>
+<div class="services">
+  <div class="service-card"><i class="fa-solid fa-scissors"></i><h4>Precision Haircut</h4><p>Structured cuts tailored to your face.</p></div>
+  <div class="service-card"><i class="fa-solid fa-beard"></i><h4>Beard Design</h4><p>Defined shaping & detailing.</p></div>
+  <div class="service-card"><i class="fa-solid fa-face-smile"></i><h4>Skin Treatment</h4><p>Deep cleansing & hydration.</p></div>
+  <div class="service-card"><i class="fa-solid fa-pump-soap"></i><h4>Hair Therapy</h4><p>Repair & strengthening.</p></div>
+  <div class="service-card"><i class="fa-solid fa-head-side-mask"></i><h4>Relaxation Massage</h4><p>Premium head massage.</p></div>
+  <div class="service-card"><i class="fa-solid fa-spray-can-sparkles"></i><h4>Styling Finish</h4><p>Professional final touch.</p></div>
+</div>
 </section>
 
-<section>
-  <h2 class="section-title">Before & After</h2>
-  <div class="before-after">
-    <img src="before.jpg" alt="Before">
-    <div class="after-img">
-      <img src="after.jpg" alt="After">
-    </div>
-    <div class="slider"></div>
+<section class="container">
+<h2>Signature Packages</h2>
+<div class="packages">
+  <div class="package">
+    <h3>Essential</h3>
+    <div class="price">Rs. 2,500</div>
+    <ul>
+      <li>Haircut</li>
+      <li>Beard Trim</li>
+      <li>Wash & Style</li>
+    </ul>
+    <a href="#" class="btn-primary">Select</a>
   </div>
+
+  <div class="package highlight">
+    <h3>Premium</h3>
+    <div class="price">Rs. 4,500</div>
+    <ul>
+      <li>Signature Cut</li>
+      <li>Beard Design</li>
+      <li>Facial Treatment</li>
+      <li>Massage</li>
+    </ul>
+    <a href="#" class="btn-primary">Select</a>
+  </div>
+
+  <div class="package">
+    <h3>Elite</h3>
+    <div class="price">Rs. 7,000</div>
+    <ul>
+      <li>Full Grooming</li>
+      <li>Luxury Facial</li>
+      <li>Therapy Treatment</li>
+    </ul>
+    <a href="#" class="btn-primary">Select</a>
+  </div>
+</div>
+</section>
+
+<section class="container">
+<h2>Before & After</h2>
+<div class="before-after">
+  <img src="before.jpg">
+  <div class="after">
+    <img src="after.jpg">
+  </div>
+  <div class="slider"></div>
+</div>
+</section>
+
+<section class="cta">
+  <h2>Experience the Difference</h2>
+  <p>Book your premium grooming session today.</p>
+  <a href="#">Book Now</a>
 </section>
 
 <footer>
-  <div class="footer-content">
+  <div class="footer-grid">
+    <div>
+      <h3>Hair by Selo</h3>
+      <p>Modern grooming studio for refined men.</p>
+    </div>
     <div>
       <h4>Contact</h4>
       <p>0300-1234567</p>
       <p>info@hairbyselo.com</p>
     </div>
-    <div>
-      <a href="#" class="whatsapp-btn">
-        <i class="fa-brands fa-whatsapp"></i> Book on WhatsApp
-      </a>
-    </div>
     <div class="social">
+      <h4>Follow</h4>
       <i class="fa-brands fa-facebook"></i>
       <i class="fa-brands fa-instagram"></i>
-      <i class="fa-brands fa-youtube"></i>
+      <i class="fa-brands fa-whatsapp"></i>
     </div>
   </div>
 </footer>
 
 <script>
 
-const slider = document.querySelector('.slider');
-const afterImg = document.querySelector('.after-img');
-const container = document.querySelector('.before-after');
-
-slider.addEventListener('mousedown', function(){
-  document.onmousemove = function(e){
-    let rect = container.getBoundingClientRect();
-    let position = e.clientX - rect.left;
-    if(position < 0) position = 0;
-    if(position > rect.width) position = rect.width;
-    slider.style.left = position + "px";
-    afterImg.style.width = position + "px";
-  }
+window.addEventListener("scroll",function(){
+  document.getElementById("header").classList.toggle("scrolled",window.scrollY>50);
 });
 
-document.onmouseup = function(){
-  document.onmousemove = null;
-};
+const slider=document.querySelector(".slider");
+const after=document.querySelector(".after");
+const container=document.querySelector(".before-after");
+
+slider.addEventListener("mousedown",function(){
+  document.onmousemove=function(e){
+    let rect=container.getBoundingClientRect();
+    let pos=e.clientX-rect.left;
+    if(pos<0)pos=0;
+    if(pos>rect.width)pos=rect.width;
+    slider.style.left=pos+"px";
+    after.style.width=pos+"px";
+  }
+});
+document.onmouseup=function(){document.onmousemove=null;}
 
 </script>
 
 </body>
-</html>
+      </html>
