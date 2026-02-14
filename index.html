@@ -9,8 +9,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
 
+<style>
 :root{
   --bg:#F4F2EE;
   --card:#FFFFFF;
@@ -34,6 +34,7 @@ section{padding:90px 8%;}
 h1,h2,h3{
   font-family:'Playfair Display',serif;
   letter-spacing:.5px;
+  color:var(--dark);
 }
 
 .container{max-width:1400px;margin:auto;}
@@ -41,50 +42,62 @@ h1,h2,h3{
 /* HEADER */
 header{
   position:fixed;
-  top:0;
   width:100%;
-  padding:22px 8%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:transparent;
-  transition:.3s;
+  top:0;
+  background:var(--card);
+  border-bottom:1px solid var(--border);
   z-index:1000;
 }
 
-header.scrolled{
-  background:var(--card);
-  border-bottom:1px solid var(--border);
-  padding:15px 8%;
+.nav-container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 8%;
 }
 
-.logo img{height:50px;}
+.logo img{
+  height:40px;
+}
+
+.menu-toggle{
+  display:none;
+  font-size:22px;
+  cursor:pointer;
+  color:var(--dark);
+}
 
 nav ul{
   display:flex;
   list-style:none;
-  gap:32px;
+  gap:28px;
 }
 
 nav a{
   text-decoration:none;
   color:var(--dark);
   font-weight:500;
-  position:relative;
 }
 
-nav a:after{
-  content:"";
-  position:absolute;
-  bottom:-6px;
-  left:0;
-  width:0%;
-  height:2px;
-  background:var(--gold);
-  transition:.3s;
+/* MOBILE NAVIGATION */
+@media(max-width:900px){
+  .menu-toggle{display:block;}
+  nav{
+    position:absolute;
+    top:60px;
+    left:0;
+    width:100%;
+    background:var(--card);
+    display:none;
+    border-top:1px solid var(--border);
+  }
+  nav ul{
+    flex-direction:column;
+    padding:20px 8%;
+    gap:18px;
+  }
+  nav.active{display:block;}
 }
-
-nav a:hover:after{width:100%;}
 
 /* HERO */
 .hero{
@@ -113,18 +126,21 @@ nav a:hover:after{width:100%;}
   text-decoration:none;
   font-weight:500;
   margin-right:15px;
+  border-radius:4px;
+  transition:.3s;
 }
+
+.btn-primary:hover{opacity:.85;}
 
 .btn-outline{
   border:1px solid var(--dark);
   padding:15px 32px;
   text-decoration:none;
   color:var(--dark);
+  border-radius:4px;
 }
 
-.hero img{
-  width:100%;
-}
+.btn-outline:hover{background:var(--dark);color:#fff;}
 
 /* SERVICES */
 .services{
@@ -140,16 +156,12 @@ nav a:hover:after{width:100%;}
   transition:.3s;
 }
 
-.service-card:hover{
-  border:1px solid var(--gold);
-}
-
+.service-card:hover{border:1px solid var(--gold);}
 .service-card i{
   font-size:28px;
   color:var(--gold);
   margin-bottom:15px;
 }
-
 .service-card h4{
   margin-bottom:12px;
 }
@@ -167,25 +179,11 @@ nav a:hover:after{width:100%;}
   border:1px solid var(--border);
 }
 
-.package.highlight{
-  border:1px solid var(--gold);
-}
-
+.package.highlight{border:1px solid var(--gold);}
 .package h3{margin-bottom:15px;}
-.price{
-  font-size:42px;
-  margin:20px 0;
-}
-
-.package ul{
-  list-style:none;
-  margin-bottom:25px;
-}
-
-.package ul li{
-  margin-bottom:10px;
-  font-size:14px;
-}
+.price{font-size:42px;margin:20px 0;}
+.package ul{list-style:none;margin-bottom:25px;}
+.package ul li{margin-bottom:10px;font-size:14px;}
 
 /* PROCESS */
 .process{
@@ -194,29 +192,21 @@ nav a:hover:after{width:100%;}
   gap:30px;
 }
 
-.step{
-  text-align:center;
-}
-
+.step{text-align:center;}
 .step i{
   font-size:30px;
   color:var(--gold);
   margin-bottom:15px;
 }
 
-/* BEFORE AFTER */
+/* BEFORE & AFTER */
 .before-after{
   position:relative;
   max-width:1000px;
   margin:auto;
   overflow:hidden;
 }
-
-.before-after img{
-  width:100%;
-  display:block;
-}
-
+.before-after img{width:100%; display:block;}
 .after{
   position:absolute;
   top:0;
@@ -224,7 +214,6 @@ nav a:hover:after{width:100%;}
   width:50%;
   overflow:hidden;
 }
-
 .slider{
   position:absolute;
   top:0;
@@ -241,17 +230,12 @@ nav a:hover:after{width:100%;}
   grid-template-columns:repeat(3,1fr);
   gap:30px;
 }
-
 .review{
   background:var(--card);
   padding:30px;
   border:1px solid var(--border);
 }
-
-.stars{
-  color:var(--gold);
-  margin:10px 0;
-}
+.stars{color:var(--gold);margin:10px 0;}
 
 /* CTA */
 .cta{
@@ -260,7 +244,6 @@ nav a:hover:after{width:100%;}
   text-align:center;
   padding:80px 8%;
 }
-
 .cta a{
   background:var(--gold);
   padding:15px 35px;
@@ -268,6 +251,7 @@ nav a:hover:after{width:100%;}
   color:#fff;
   display:inline-block;
   margin-top:25px;
+  border-radius:4px;
 }
 
 /* FOOTER */
@@ -276,68 +260,59 @@ footer{
   padding:60px 8%;
   border-top:1px solid var(--gold);
 }
-
 .footer-grid{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:40px;
 }
+.social i{margin-right:12px;color:var(--gold);}
 
-.social i{
-  margin-right:12px;
-  color:var(--gold);
+/* MOBILE ADJUSTMENTS */
+@media(max-width:900px){
+
+.hero{grid-template-columns:1fr;padding-top:110px;gap:30px;}
+.hero-text h1{font-size:38px;line-height:1.1;}
+.hero-text p{font-size:15px;}
+.btn-primary,.btn-outline{
+  display:block;width:100%;text-align:center;margin-bottom:12px;
 }
 
-/* MOBILE */
-@media(max-width:1000px){
+.services{grid-template-columns:repeat(2,1fr);}
+.packages{grid-template-columns:1fr;}
+.process{grid-template-columns:repeat(2,1fr);}
+.reviews{grid-template-columns:1fr;}
 
-.hero{
-  grid-template-columns:1fr;
-  gap:40px;
-}
-
-.services{
-  grid-template-columns:repeat(2,1fr);
-}
-
-.packages{
-  grid-template-columns:1fr;
-}
-
-.process{
-  grid-template-columns:repeat(2,1fr);
-}
-
-.reviews{
-  grid-template-columns:1fr;
-}
-
-nav ul{
-  gap:15px;
-  font-size:14px;
-}
+nav ul{gap:15px;font-size:14px;}
 
 }
-
 </style>
+
+
 </head>
 
 <body>
 
 <header id="header">
-  <div class="logo">
-    <img src="logo.png">
+  <div class="nav-container">
+    <div class="logo">
+      <img src="logo.png" alt="Hair by Selo">
+    </div>
+
+    <div class="menu-toggle" id="menuToggle">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <nav id="mobileNav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Work</a></li>
+        <li><a href="#">Reviews</a></li>
+        <li><a href="#">Book</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
   </div>
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Work</a></li>
-      <li><a href="#">Reviews</a></li>
-      <li><a href="#">Book</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
 </header>
 
 <section class="hero container">
