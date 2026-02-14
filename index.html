@@ -3,52 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hair by Seloo | Premium Men's Grooming</title>
+<title>Hair by Selo | Premium Men's Grooming</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
 :root{
   --gold:#C6A75E;
-  --light:#ffffff;
+  --white:#ffffff;
   --cream:#f8f6f2;
-  --beige:#efe9df;
+  --beige:#ece6db;
   --text:#222;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
   font-family:'Poppins',sans-serif;
   background:var(--cream);
   color:var(--text);
-  line-height:1.6;
 }
+
+section{padding:70px 8%;}
 
 /* HEADER */
 header{
-  background:var(--light);
-  padding:18px 8%;
+  background:var(--white);
+  padding:15px 8%;
   display:flex;
   justify-content:space-between;
   align-items:center;
   border-bottom:1px solid var(--beige);
 }
 
-.logo{
-  font-family:'Cinzel',serif;
-  font-size:26px;
-  color:var(--gold);
-  font-weight:700;
+.logo img{
+  height:55px;
+  width:auto;
 }
 
 nav ul{
@@ -84,20 +77,16 @@ nav a:hover{
 .hero h1{
   font-family:'Cinzel',serif;
   font-size:46px;
-  margin-bottom:20px;
+  margin-bottom:25px;
 }
 
 .btn{
-  display:inline-block;
   background:var(--gold);
   color:#fff;
   padding:14px 28px;
   text-decoration:none;
   font-weight:500;
-}
-
-section{
-  padding:70px 8%;
+  display:inline-block;
 }
 
 /* SECTION TITLE */
@@ -105,26 +94,35 @@ section{
   text-align:center;
   font-family:'Cinzel',serif;
   font-size:32px;
-  margin-bottom:40px;
-  color:#333;
+  margin-bottom:45px;
 }
 
 /* SERVICES */
 .services{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  display:flex;
   gap:25px;
+  overflow-x:auto;
+  padding-bottom:10px;
+}
+
+.services::-webkit-scrollbar{
+  height:6px;
+}
+.services::-webkit-scrollbar-thumb{
+  background:var(--gold);
 }
 
 .service-card{
-  background:var(--light);
+  min-width:220px;
+  background:var(--white);
   padding:30px;
   text-align:center;
   border:1px solid var(--gold);
+  flex-shrink:0;
 }
 
 .service-card i{
-  font-size:32px;
+  font-size:30px;
   color:var(--gold);
   margin-bottom:15px;
 }
@@ -136,25 +134,24 @@ section{
 /* PRICING */
 .pricing-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
   gap:30px;
 }
 
 .price-box{
-  background:var(--light);
+  background:var(--white);
   padding:30px;
   border:1px solid var(--beige);
 }
 
 .price-box h4{
-  margin-bottom:15px;
-  font-weight:600;
+  margin-bottom:20px;
 }
 
 .price-item{
   display:flex;
   justify-content:space-between;
-  padding:8px 0;
+  padding:10px 0;
   border-bottom:1px solid var(--beige);
 }
 
@@ -166,26 +163,35 @@ section{
 }
 
 .review{
-  background:var(--light);
+  background:var(--white);
   padding:25px;
   border:1px solid var(--beige);
 }
 
 .stars{
   color:var(--gold);
-  margin:10px 0;
+  margin:12px 0;
 }
 
-/* BEFORE AFTER SLIDER */
+/* BEFORE AFTER */
 .before-after{
   position:relative;
-  max-width:700px;
+  max-width:750px;
   margin:0 auto;
+  overflow:hidden;
 }
 
 .before-after img{
   width:100%;
   display:block;
+}
+
+.after-img{
+  position:absolute;
+  top:0;
+  left:0;
+  width:50%;
+  overflow:hidden;
 }
 
 .slider{
@@ -200,7 +206,7 @@ section{
 
 /* FOOTER */
 footer{
-  background:var(--light);
+  background:var(--white);
   padding:40px 8%;
   border-top:1px solid var(--gold);
 }
@@ -212,12 +218,6 @@ footer{
   gap:30px;
 }
 
-.social i{
-  margin-right:12px;
-  color:var(--gold);
-  font-size:18px;
-}
-
 .whatsapp-btn{
   background:var(--gold);
   padding:12px 20px;
@@ -226,24 +226,38 @@ footer{
   display:inline-block;
 }
 
+.social i{
+  margin-right:12px;
+  color:var(--gold);
+  font-size:18px;
+}
+
 /* MOBILE */
 @media(max-width:768px){
+
   nav ul{
-    display:none;
+    gap:15px;
+    font-size:14px;
   }
+
   .hero{
-    height:70vh;
+    height:65vh;
   }
+
   .hero h1{
     font-size:32px;
   }
-}
 
-    .logo img{
-  height:55px;
-  width:auto;
-  display:block;
-    }
+  header{
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .footer-content{
+    flex-direction:column;
+  }
+
+}
 
 </style>
 </head>
@@ -251,7 +265,9 @@ footer{
 <body>
 
 <header>
-  <div class="logo">شاہ گرامی</div>
+  <div class="logo">
+    <img src="logo.png" alt="Hair by Selo Logo">
+  </div>
   <nav>
     <ul>
       <li><a href="#">Home</a></li>
@@ -266,9 +282,7 @@ footer{
 
 <section class="hero">
   <div class="hero-content">
-    <div class="logo">
-  <img src="logo.png" alt="Salon Logo">
-</div>
+    <h1>Refine Your Look</h1>
     <a href="#" class="btn">Book Appointment</a>
   </div>
 </section>
@@ -285,42 +299,12 @@ footer{
 </section>
 
 <section>
-  <h2 class="section-title">Pricing</h2>
-  <div class="pricing-grid">
-    <div class="price-box">
-      <h4>Haircut & Beard</h4>
-      <div class="price-item"><span>Haircut</span><span>Rs.1200</span></div>
-      <div class="price-item"><span>Beard Trim</span><span>Rs.800</span></div>
-    </div>
-    <div class="price-box">
-      <h4>Packages</h4>
-      <div class="price-item"><span>Signature</span><span>Rs.3000</span></div>
-      <div class="price-item"><span>Deluxe</span><span>Rs.4500</span></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Client Reviews</h2>
-  <div class="review-grid">
-    <div class="review">
-      <h4>Ahmed Rafiq</h4>
-      <div class="stars">
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-        <i class="fa-solid fa-star"></i>
-      </div>
-      <p>Top-class haircut and beard trim.</p>
-    </div>
-  </div>
-</section>
-
-<section>
   <h2 class="section-title">Before & After</h2>
   <div class="before-after">
-    <img src="before.jpg">
+    <img src="before.jpg" alt="Before">
+    <div class="after-img">
+      <img src="after.jpg" alt="After">
+    </div>
     <div class="slider"></div>
   </div>
 </section>
@@ -330,10 +314,12 @@ footer{
     <div>
       <h4>Contact</h4>
       <p>0300-1234567</p>
-      <p>info@shahgrami.com</p>
+      <p>info@hairbyselo.com</p>
     </div>
     <div>
-      <a href="#" class="whatsapp-btn"><i class="fa-brands fa-whatsapp"></i> Book on WhatsApp</a>
+      <a href="#" class="whatsapp-btn">
+        <i class="fa-brands fa-whatsapp"></i> Book on WhatsApp
+      </a>
     </div>
     <div class="social">
       <i class="fa-brands fa-facebook"></i>
@@ -344,14 +330,27 @@ footer{
 </footer>
 
 <script>
+
 const slider = document.querySelector('.slider');
-slider.addEventListener('mousedown',function(e){
-  document.onmousemove=function(e){
-    let pos = e.pageX - slider.parentElement.offsetLeft;
-    slider.style.left = pos + "px";
+const afterImg = document.querySelector('.after-img');
+const container = document.querySelector('.before-after');
+
+slider.addEventListener('mousedown', function(){
+  document.onmousemove = function(e){
+    let rect = container.getBoundingClientRect();
+    let position = e.clientX - rect.left;
+    if(position < 0) position = 0;
+    if(position > rect.width) position = rect.width;
+    slider.style.left = position + "px";
+    afterImg.style.width = position + "px";
   }
 });
+
+document.onmouseup = function(){
+  document.onmousemove = null;
+};
+
 </script>
 
 </body>
-            </html>
+</html>
