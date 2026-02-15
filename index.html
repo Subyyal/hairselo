@@ -73,6 +73,95 @@
             display: none;
         }
 
+        /* FIA Legal Warning */
+        #fia-warning {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0000 0%, #1a0505 50%, #000000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999999;
+            flex-direction: column;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #fia-warning.hidden {
+            display: none;
+        }
+
+        .fia-shield {
+            font-size: 100px;
+            color: #ff0000;
+            margin-bottom: 30px;
+            animation: warningPulse 2s infinite;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .fia-title {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+
+        .fia-message {
+            font-size: 18px;
+            color: #ffffff;
+            max-width: 700px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .fia-code {
+            font-size: 22px;
+            color: #D4AF37;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: 2px solid #D4AF37;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            background: rgba(212, 175, 55, 0.1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .fia-countdown {
+            font-size: 14px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        .fia-progress {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .fia-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #D4AF37);
+            width: 0%;
+            animation: progressLoad 5s linear forwards;
+        }
+
+        @keyframes progressLoad {
+            to { width: 100%; }
+        }
+
         .spinner {
             width: 50px;
             height: 50px;
@@ -348,6 +437,43 @@
 </head>
 <body>
 
+    <!-- NO JAVASCRIPT PROTECTION -->
+    <noscript>
+        <div style="position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; flex-direction: column; color: #fff; font-family: Arial; text-align: center; padding: 20px;">
+            <div style="font-size: 80px; margin-bottom: 20px;">⚠️</div>
+            <h1 style="color: #ff0000; font-size: 32px; margin-bottom: 20px;">ACCESS DENIED</h1>
+            <p style="font-size: 18px; max-width: 600px; line-height: 1.6; margin-bottom: 20px;">
+                This website requires JavaScript to function properly.<br>
+                This content is protected under FIA Cyber Crime Laws.
+            </p>
+            <p style="color: #D4AF37; font-size: 16px; font-weight: bold;">
+                FIA Act Section 223 | Civil Code Protection
+            </p>
+        </div>
+    </noscript>
+
+    <!-- FIA Legal Warning (Shows First) -->
+    <div id="fia-warning">
+        <div class="fia-shield">
+            🛡️
+        </div>
+        <div class="fia-title">⚠️ LEGAL NOTICE ⚠️</div>
+        <div class="fia-message">
+            This website is protected under the <strong>Federal Investigation Agency (FIA) Cyber Crime Wing</strong> and Pakistan Penal Code.
+        </div>
+        <div class="fia-code">
+            FIA Act Section 223 | Civil Code Protection
+        </div>
+        <div class="fia-message">
+            Unauthorized access, copying, scraping, or reproduction of this content is a <strong>criminal offense</strong> punishable by law.<br>
+            All activities are monitored and logged. Violators will be prosecuted.
+        </div>
+        <div class="fia-countdown" id="fia-timer">Proceeding in <span id="countdown">5</span> seconds...</div>
+        <div class="fia-progress">
+            <div class="fia-progress-bar"></div>
+        </div>
+    </div>
+
     <!-- HONEYPOT: Fake content for scrapers (hidden from real users) -->
     <div class="scraper-trap">
         <h1>Error 404 - Page Not Found</h1>
@@ -413,6 +539,23 @@
                 document.body.innerHTML = '<h1>Access Denied</h1><p>JavaScript required.</p>';
                 throw new Error('Bot detected');
             }
+
+            // FIA WARNING COUNTDOWN
+            (function() {
+                let countdown = 5;
+                const countdownEl = document.getElementById('countdown');
+                const fiaWarning = document.getElementById('fia-warning');
+                
+                const timer = setInterval(() => {
+                    countdown--;
+                    if (countdownEl) countdownEl.textContent = countdown;
+                    
+                    if (countdown <= 0) {
+                        clearInterval(timer);
+                        if (fiaWarning) fiaWarning.classList.add('hidden');
+                    }
+                }, 1000);
+            })();
 
             // Simple encryption/decryption (Base64 + character shift)
             const decrypt = (str) => {
