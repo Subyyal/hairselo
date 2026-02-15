@@ -9,9 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Outfit:wght@200;400;600&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;600&family=Raleway:wght@300;700&family=Bebas+Neue&family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;600&family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
+    <!-- ANTI-SCRAPER: Honeypot Meta Tags (Fake content for bots) -->
+    <meta name="description" content="Error 404 - Page not found. This content has been moved.">
+    <meta name="robots" content="noindex, nofollow">
+    
     <style>
+        /* HONEYPOT: Hidden traps for scrapers */
+        .scraper-trap { display: none !important; visibility: hidden; opacity: 0; position: absolute; left: -9999px; }
+        
         :root {
-            /* Default: Elite Carbon Gold */
             --primary: #D4AF37;
             --bg: #0d0d0d;
             --text: #ffffff;
@@ -41,9 +47,47 @@
             -ms-user-select: none;
         }
 
+        /* Initial loading state - shows until JS decrypts content */
+        #app-container {
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        #app-container.loaded {
+            opacity: 1;
+        }
+
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #0d0d0d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .loading-screen.hidden {
+            display: none;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(212, 175, 55, 0.3);
+            border-top-color: #D4AF37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .serif { font-family: var(--font-heading); }
 
-        /* Carbon Fiber Layer */
         .carbon-layer {
             position: fixed;
             inset: 0;
@@ -58,7 +102,6 @@
             pointer-events: none;
         }
 
-        /* Logo Styling */
         .logo-img {
             height: 45px;
             width: auto;
@@ -67,24 +110,18 @@
             pointer-events: none;
         }
 
-        .logo-img:hover {
-            transform: scale(1.05);
-        }
+        .logo-img:hover { transform: scale(1.05); }
 
         @media (max-width: 768px) {
-            .logo-img {
-                height: 35px;
-            }
+            .logo-img { height: 35px; }
         }
 
-        /* Responsive Mobile Menu */
         #mobile-menu {
             transform: translateX(100%);
             transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
         #mobile-menu.active { transform: translateX(0); }
 
-        /* Next-Gen Glass Cards */
         .glass-card {
             background: var(--card);
             backdrop-filter: blur(12px);
@@ -97,7 +134,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* Button Styling */
         .btn-primary {
             background-color: var(--button-bg);
             color: var(--button-text);
@@ -107,10 +143,7 @@
             overflow: hidden;
         }
 
-        /* Button Styles */
-        .btn-solid {
-            border: none;
-        }
+        .btn-solid { border: none; }
 
         .btn-outline {
             background: transparent !important;
@@ -150,7 +183,6 @@
             transform: translateY(-2px);
         }
 
-        /* Theme Panel Positioning */
         #theme-sidebar {
             position: fixed;
             right: -380px;
@@ -186,7 +218,6 @@
             background: rgba(255,255,255,0.02);
         }
 
-        /* Random Generator Animation */
         @keyframes randomize {
             0%, 100% { transform: rotate(0deg); }
             25% { transform: rotate(90deg); }
@@ -198,7 +229,6 @@
             animation: randomize 0.5s ease-in-out;
         }
 
-        /* Category Icons */
         .category-icon {
             display: inline-flex;
             align-items: center;
@@ -207,25 +237,13 @@
             margin-right: 8px;
         }
 
-        /* Hide carbon pattern in light themes */
         .light-theme .carbon-layer { display: none; }
         .light-theme .spotlight { display: none; }
 
-        /* Scrollbar Styling */
-        #theme-sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
+        #theme-sidebar::-webkit-scrollbar { width: 6px; }
+        #theme-sidebar::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        #theme-sidebar::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
 
-        #theme-sidebar::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
-        }
-
-        #theme-sidebar::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
-        }
-
-        /* BLACKHOLE PROTECTION OVERLAY */
         #blackhole-overlay {
             position: fixed;
             inset: 0;
@@ -248,14 +266,8 @@
         }
 
         @keyframes spiralIn {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(0) rotate(720deg);
-                opacity: 0;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: scale(0) rotate(720deg); opacity: 0; }
         }
 
         .blackhole-active * {
@@ -295,7 +307,6 @@
             line-height: 1.6;
         }
 
-        /* Test Mode Indicator */
         #test-mode-indicator {
             position: fixed;
             bottom: 20px;
@@ -323,7 +334,6 @@
             25%, 75% { opacity: 0.5; }
         }
 
-        /* Protection Watermark */
         .protection-watermark {
             position: fixed;
             bottom: 10px;
@@ -338,604 +348,656 @@
 </head>
 <body>
 
-    <div class="carbon-layer"></div>
-    <div class="spotlight fixed inset-0 pointer-events-none" style="background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%); z-index: -1;"></div>
-
-    <!-- Test Mode Indicator -->
-    <div id="test-mode-indicator">
-        <i class="fas fa-check-circle"></i> TEST MODE ACTIVE - Protection Disabled
+    <!-- HONEYPOT: Fake content for scrapers (hidden from real users) -->
+    <div class="scraper-trap">
+        <h1>Error 404 - Page Not Found</h1>
+        <p>This page has been moved or deleted. Please contact support.</p>
+        <a href="#">Click here to go back</a>
+        <div>Password: 123456</div>
+        <div>Admin Panel: /admin/login.php</div>
+        <div>Database: mysql://localhost:3306</div>
     </div>
 
-    <!-- Protection Watermark -->
-    <div class="protection-watermark">
-        Protected by Hair by Selo © 2026
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="spinner"></div>
+        <p style="color: #D4AF37; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">Loading Elite Experience...</p>
     </div>
 
-    <!-- Blackhole Overlay -->
-    <div id="blackhole-overlay">
-        <div class="warning-emoji">🚨</div>
-        <div class="warning-text">CHOR CHOR CHOR! 😆😆😆</div>
-        <div class="warning-message">
-            <p style="margin-bottom: 20px;">⚠️ CONTENT PROTECTION ACTIVE ⚠️</p>
-            <p style="margin-bottom: 20px;">This website is protected against unauthorized copying and scraping.</p>
-            <p style="font-size: 18px; color: #ff6b6b;">Developer tools have been detected!</p>
-            <p style="margin-top: 30px; font-size: 14px; opacity: 0.7;">If you're the owner, add <strong>?testmode=true</strong> to the URL</p>
+    <!-- Real Content Container (Hidden until JS loads) -->
+    <div id="app-container">
+        <div class="carbon-layer"></div>
+        <div class="spotlight fixed inset-0 pointer-events-none" style="background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%); z-index: -1;"></div>
+
+        <div id="test-mode-indicator">
+            <i class="fas fa-check-circle"></i> TEST MODE ACTIVE - Protection Disabled
         </div>
+
+        <div class="protection-watermark">
+            Protected by Hair by Selo © 2026
+        </div>
+
+        <div id="blackhole-overlay">
+            <div class="warning-emoji">🚨</div>
+            <div class="warning-text">CHOR CHOR CHOR! 😆😆😆</div>
+            <div class="warning-message">
+                <p style="margin-bottom: 20px;">⚠️ CONTENT PROTECTION ACTIVE ⚠️</p>
+                <p style="margin-bottom: 20px;">This website is protected against unauthorized copying and scraping.</p>
+                <p style="font-size: 18px; color: #ff6b6b;">Developer tools have been detected!</p>
+                <p style="margin-top: 30px; font-size: 14px; opacity: 0.7;">If you're the owner, add <strong>?testmode=true</strong> to the URL</p>
+            </div>
+        </div>
+
+        <!-- Content will be injected here by JavaScript -->
+        <div id="dynamic-content"></div>
     </div>
 
-    <header class="fixed w-full z-50 bg-black/80 backdrop-blur-xl border-b border-[--border]">
-        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3">
-                <img src="logo.png" alt="Hair by Selo Logo" class="logo-img">
-            </a>
-            
-            <nav class="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.2em] font-medium">
-                <a href="#home" class="hover:text-[--primary] transition">Home</a>
-                <a href="#services" class="hover:text-[--primary] transition">Services</a>
-                <a href="#reviews" class="hover:text-[--primary] transition">Reviews</a>
-                <a href="#footer" class="hover:text-[--primary] transition">Contact</a>
-                <button onclick="toggleThemePanel()" class="text-[--primary]"><i class="fas fa-palette"></i> Themes</button>
-            </nav>
-
-            <div class="flex items-center gap-5">
-                <a href="https://wa.me/yournumber" class="hidden md:block btn-primary px-6 py-2 text-[10px] font-bold uppercase">WhatsApp Book</a>
-                <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-[--primary]"><i class="fas fa-bars"></i></button>
-            </div>
-        </div>
-    </header>
-
-    <div id="mobile-menu" class="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center gap-8 md:hidden">
-        <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-3xl text-[--primary]"><i class="fas fa-times"></i></button>
-        <img src="logo.png" alt="Hair by Selo Logo" class="logo-img mb-4">
-        <a href="#home" onclick="toggleMobileMenu()" class="serif text-3xl">Home</a>
-        <a href="#services" onclick="toggleMobileMenu()" class="serif text-3xl">Services</a>
-        <a href="#reviews" onclick="toggleMobileMenu()" class="serif text-3xl">Reviews</a>
-        <a href="#footer" onclick="toggleMobileMenu()" class="serif text-3xl">Contact</a>
-        <button onclick="toggleThemePanel(); toggleMobileMenu();" class="btn-primary px-10 py-3 font-bold uppercase">Switch Theme</button>
-    </div>
-
-    <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 pt-20">
-        <div>
-            <div class="inline-block border border-[--primary] px-8 py-2 mb-8">
-                <span class="text-[10px] uppercase tracking-[0.5em] text-[--primary]">Master Barbering</span>
-            </div>
-            <h1 class="serif text-6xl md:text-9xl font-bold mb-6 tracking-tight leading-none">CRAFTING<br>IDENTITY</h1>
-            <p class="max-w-lg mx-auto text-sm md:text-base opacity-60 mb-10 font-light leading-relaxed">High-performance grooming in a bespoke carbon environment. Lahore's most exclusive gentleman's studio.</p>
-            <div class="flex flex-wrap justify-center gap-4">
-                <a href="#services" class="btn-primary px-12 py-5 text-[10px] font-bold uppercase tracking-widest">View Menu</a>
-                <button onclick="toggleThemePanel()" class="border border-white/20 px-12 py-5 text-[10px] font-bold uppercase tracking-widest hover:border-[--primary] transition">Change Theme</button>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="max-w-7xl mx-auto px-6 py-32">
-        <div class="flex flex-col md:flex-row justify-between items-center mb-20 gap-8">
-            <h2 class="serif text-4xl text-center md:text-left">Elite <span style="color: var(--primary)">Services</span></h2>
-            
-            <div class="grid grid-cols-3 md:flex gap-3 w-full md:w-auto flex-wrap" id="filter-bar">
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="service-container">
-        </div>
-    </section>
-
-    <section id="reviews" class="bg-black/20 py-32 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="serif text-center text-3xl mb-20 uppercase tracking-[0.3em]">Client Experiences</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="review-container">
-            </div>
-        </div>
-    </section>
-
-    <footer id="footer" class="pt-32 pb-10 px-6 border-t border-[--border]">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-                <div class="col-span-1 md:col-span-2">
-                    <img src="logo.png" alt="Hair by Selo Logo" class="logo-img mb-8">
-                    <p class="opacity-50 text-sm max-w-sm leading-7 mb-10">Premium grooming services blending traditional artistry with modern sophistication. Dedicated to the discerning gentleman.</p>
-                    <div class="flex gap-8 text-2xl">
-                        <a href="#" class="hover:text-[--primary]"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="hover:text-[--primary]"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="hover:text-[--primary]"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-[10px] uppercase font-bold tracking-[0.3em] mb-8 text-[--primary]">Contact</h4>
-                    <ul class="text-sm space-y-4 opacity-70">
-                        <li>Phase 5, DHA, Lahore</li>
-                        <li>+92 321 4455667</li>
-                        <li>info@hairbyselo.com</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-[10px] uppercase font-bold tracking-[0.3em] mb-8 text-[--primary]">Hours</h4>
-                    <ul class="text-sm space-y-4 opacity-70">
-                        <li>Mon - Sat: 11:00 - 22:00</li>
-                        <li>Sunday: 14:00 - 21:00</li>
-                        <li class="pt-4 text-[--primary]">Open 7 Days a Week</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center pt-10 border-t border-white/5 opacity-30 text-[9px] uppercase tracking-widest">
-                © 2026 Hair by Selo Studio. All Rights Reserved.
-            </div>
-        </div>
-    </footer>
-
-    <div id="theme-sidebar">
-        <div class="p-6">
-            <div class="flex justify-between items-center mb-10">
-                <h3 class="serif text-lg text-[--primary]">Style Customizer</h3>
-                <button onclick="toggleThemePanel()" class="text-xl">&times;</button>
-            </div>
-
-            <!-- Random Generator Section -->
-            <div class="mb-10 p-5 bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg">
-                <h4 class="text-[10px] uppercase opacity-60 mb-4 tracking-widest text-center">
-                    <i class="fas fa-wand-magic-sparkles"></i> Random Style Generator
-                </h4>
-                <button onclick="generateRandomStyle()" id="random-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 text-[11px] uppercase tracking-wider hover:from-purple-700 hover:to-pink-700 transition-all rounded-lg">
-                    <i class="fas fa-shuffle"></i> Generate Random Style
-                </button>
-                <p class="text-[9px] text-center mt-3 opacity-40">Creates unique combinations instantly</p>
-            </div>
-
-            <!-- Font Combinations -->
-            <div class="mb-8">
-                <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Font Combinations</h4>
-                <div id="font-swatches"></div>
-            </div>
-
-            <!-- Button Styles -->
-            <div class="mb-8">
-                <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Button Styles</h4>
-                <div id="button-swatches"></div>
-            </div>
-
-            <div class="mb-8">
-                <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Elite Dark Themes</h4>
-                <div id="dark-swatches"></div>
-            </div>
-
-            <div class="mb-10">
-                <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Premium Light Themes</h4>
-                <div id="light-swatches"></div>
-            </div>
-            
-            <button onclick="resetTheme()" class="w-full btn-primary font-bold py-3 text-[10px] uppercase">Reset to Original</button>
-        </div>
-    </div>
-
+    <!-- ENCRYPTED CONTENT & PROTECTION SYSTEM -->
     <script>
         // ============================================
-        // PROTECTION SYSTEM
+        // ANTI-BOT VERIFICATION
         // ============================================
-        
-        // Check if test mode is enabled
-        const urlParams = new URLSearchParams(window.location.search);
-        const isTestMode = urlParams.get('testmode') === 'true';
-        
-        if (isTestMode) {
-            document.getElementById('test-mode-indicator').classList.add('active');
-            console.log('%c🔓 TEST MODE ACTIVE - All protections disabled', 'color: #00ff00; font-size: 16px; font-weight: bold;');
-        }
+        (function() {
+            'use strict';
+            
+            // Check if real browser
+            const isRealBrowser = () => {
+                return typeof window !== 'undefined' && 
+                       typeof document !== 'undefined' && 
+                       typeof navigator !== 'undefined' &&
+                       window.innerWidth > 0 &&
+                       window.innerHeight > 0;
+            };
 
-        let devtoolsOpen = false;
+            if (!isRealBrowser()) {
+                document.body.innerHTML = '<h1>Access Denied</h1><p>JavaScript required.</p>';
+                throw new Error('Bot detected');
+            }
 
-        function triggerBlackhole() {
+            // Simple encryption/decryption (Base64 + character shift)
+            const decrypt = (str) => {
+                try {
+                    return atob(str).split('').map(c => 
+                        String.fromCharCode(c.charCodeAt(0) - 3)
+                    ).join('');
+                } catch(e) {
+                    return str;
+                }
+            };
+
+            // Check test mode
+            const urlParams = new URLSearchParams(window.location.search);
+            const isTestMode = urlParams.get('testmode') === 'true';
+            
             if (isTestMode) {
-                console.log('%c⚠️ Blackhole triggered but TEST MODE is active', 'color: orange; font-size: 14px;');
-                return;
+                document.getElementById('test-mode-indicator').classList.add('active');
+                console.log('%c🔓 TEST MODE ACTIVE - All protections disabled', 'color: #00ff00; font-size: 16px; font-weight: bold;');
             }
+
+            let devtoolsOpen = false;
+
+            function triggerBlackhole() {
+                if (isTestMode) {
+                    console.log('%c⚠️ Blackhole triggered but TEST MODE is active', 'color: orange; font-size: 14px;');
+                    return;
+                }
+                
+                document.body.classList.add('blackhole-active');
+                setTimeout(() => {
+                    document.getElementById('blackhole-overlay').classList.add('active');
+                }, 1000);
+                
+                document.body.style.pointerEvents = 'none';
+            }
+
+            // DevTools Detection
+            const element = new Image();
+            Object.defineProperty(element, 'id', {
+                get: function() {
+                    if (!isTestMode && !devtoolsOpen) {
+                        devtoolsOpen = true;
+                        triggerBlackhole();
+                    }
+                    return 'devtools-detector';
+                }
+            });
+
+            let windowWidth = window.outerWidth - window.innerWidth;
+            let windowHeight = window.outerHeight - window.innerHeight;
             
-            document.body.classList.add('blackhole-active');
-            setTimeout(() => {
-                document.getElementById('blackhole-overlay').classList.add('active');
+            setInterval(() => {
+                if (!isTestMode) {
+                    const widthDiff = window.outerWidth - window.innerWidth;
+                    const heightDiff = window.outerHeight - window.innerHeight;
+                    
+                    if (Math.abs(widthDiff - windowWidth) > 200 || Math.abs(heightDiff - windowHeight) > 200) {
+                        if (!devtoolsOpen) {
+                            devtoolsOpen = true;
+                            triggerBlackhole();
+                        }
+                    }
+                }
             }, 1000);
-            
-            // Disable the page
-            document.body.style.pointerEvents = 'none';
-        }
 
-        // Method 1: DevTools Detection via console
-        const element = new Image();
-        Object.defineProperty(element, 'id', {
-            get: function() {
-                if (!isTestMode && !devtoolsOpen) {
-                    devtoolsOpen = true;
-                    triggerBlackhole();
-                }
-                return 'devtools-detector';
-            }
-        });
-
-        // Method 2: Window size detection (when devtools opens on side)
-        let windowWidth = window.outerWidth - window.innerWidth;
-        let windowHeight = window.outerHeight - window.innerHeight;
-        
-        setInterval(() => {
-            if (!isTestMode) {
-                const widthDiff = window.outerWidth - window.innerWidth;
-                const heightDiff = window.outerHeight - window.innerHeight;
-                
-                if (Math.abs(widthDiff - windowWidth) > 200 || Math.abs(heightDiff - windowHeight) > 200) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        triggerBlackhole();
+            setInterval(() => {
+                if (!isTestMode) {
+                    const before = new Date().getTime();
+                    debugger;
+                    const after = new Date().getTime();
+                    if (after - before > 100) {
+                        if (!devtoolsOpen) {
+                            devtoolsOpen = true;
+                            triggerBlackhole();
+                        }
                     }
                 }
-            }
-        }, 1000);
+            }, 1000);
 
-        // Method 3: Debugger trap
-        setInterval(() => {
+            setInterval(() => {
+                if (!isTestMode) {
+                    console.log(element);
+                    console.clear();
+                }
+            }, 1000);
+
             if (!isTestMode) {
-                const before = new Date().getTime();
-                debugger;
-                const after = new Date().getTime();
-                if (after - before > 100) {
-                    if (!devtoolsOpen) {
-                        devtoolsOpen = true;
-                        triggerBlackhole();
+                document.addEventListener('contextmenu', e => e.preventDefault());
+
+                document.addEventListener('keydown', e => {
+                    if (
+                        e.keyCode === 123 ||
+                        (e.ctrlKey && e.shiftKey && e.keyCode === 73) ||
+                        (e.ctrlKey && e.shiftKey && e.keyCode === 74) ||
+                        (e.ctrlKey && e.keyCode === 85) ||
+                        (e.ctrlKey && e.keyCode === 83) ||
+                        (e.ctrlKey && e.shiftKey && e.keyCode === 67) ||
+                        (e.ctrlKey && e.keyCode === 67) ||
+                        (e.ctrlKey && e.keyCode === 65)
+                    ) {
+                        e.preventDefault();
+                        return false;
                     }
-                }
+                });
+
+                document.addEventListener('dragstart', e => e.preventDefault());
+
+                console.log('%c⚠️ WARNING - CONTENT PROTECTED', 'color: red; font-size: 24px; font-weight: bold;');
+                console.log('%c🚨 Unauthorized copying or scraping is prohibited!', 'color: orange; font-size: 16px;');
+                console.log('%c😆 CHOR CHOR CHOR!', 'color: yellow; font-size: 20px; font-weight: bold;');
+                console.log('%cAdd ?testmode=true to URL to enable testing', 'color: green; font-size: 12px;');
+            } else {
+                console.log('%c✅ Welcome Developer!', 'color: #00ff00; font-size: 20px; font-weight: bold;');
+                console.log('%c🔧 Test mode is active. All protections are disabled for testing.', 'color: #00ff00; font-size: 14px;');
+                console.log('%c📱 Test responsive design freely!', 'color: #00ffff; font-size: 14px;');
             }
-        }, 1000);
 
-        // Check console regularly
-        setInterval(() => {
-            if (!isTestMode) {
-                console.log(element);
-                console.clear();
-            }
-        }, 1000);
-
-        if (!isTestMode) {
-            // Disable right-click
-            document.addEventListener('contextmenu', e => e.preventDefault());
-
-            // Disable keyboard shortcuts
-            document.addEventListener('keydown', e => {
-                // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+Shift+C
-                if (
-                    e.keyCode === 123 || // F12
-                    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
-                    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
-                    (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
-                    (e.ctrlKey && e.keyCode === 83) || // Ctrl+S
-                    (e.ctrlKey && e.shiftKey && e.keyCode === 67) || // Ctrl+Shift+C
-                    (e.ctrlKey && e.keyCode === 67) || // Ctrl+C
-                    (e.ctrlKey && e.keyCode === 65) // Ctrl+A
-                ) {
-                    e.preventDefault();
-                    return false;
-                }
-            });
-
-            // Disable drag and drop
-            document.addEventListener('dragstart', e => e.preventDefault());
-
-            // Add console warning
-            console.log('%c⚠️ WARNING - CONTENT PROTECTED', 'color: red; font-size: 24px; font-weight: bold;');
-            console.log('%c🚨 Unauthorized copying or scraping is prohibited!', 'color: orange; font-size: 16px;');
-            console.log('%c😆 CHOR CHOR CHOR!', 'color: yellow; font-size: 20px; font-weight: bold;');
-            console.log('%cAdd ?testmode=true to URL to enable testing', 'color: green; font-size: 12px;');
-        } else {
-            // In test mode, show helpful message
-            console.log('%c✅ Welcome Developer!', 'color: #00ff00; font-size: 20px; font-weight: bold;');
-            console.log('%c🔧 Test mode is active. All protections are disabled for testing.', 'color: #00ff00; font-size: 14px;');
-            console.log('%c📱 Test responsive design freely!', 'color: #00ffff; font-size: 14px;');
-        }
-
-        // ============================================
-        // MAIN SITE CODE
-        // ============================================
-
-        const categoryIcons = {
-            "All": "fa-grid-2",
-            "Hair": "fa-scissors",
-            "Beard": "fa-face-smile-beam",
-            "Skin": "fa-droplet",
-            "Grooming": "fa-gem",
-            "Spa": "fa-spa"
-        };
-
-        const categories = ["All", "Hair", "Beard", "Skin", "Grooming", "Spa"];
-        
-        const services = [
-            { cat: "Hair", name: "Signature Fade", price: "3,000", icon: "fa-cut" },
-            { cat: "Hair", name: "Scissor Architecture", price: "4,000", icon: "fa-scissors" },
-            { cat: "Beard", name: "Hot Towel Sculpt", price: "2,000", icon: "fa-soap" },
-            { cat: "Beard", name: "Beard Detox", price: "1,500", icon: "fa-wind" },
-            { cat: "Skin", name: "Carbon Oxygen Facial", price: "8,500", icon: "fa-face-smile" },
-            { cat: "Skin", name: "Ice Mask Therapy", price: "5,000", icon: "fa-snowflake" },
-            { cat: "Grooming", name: "The Royal Nikkah", price: "20,000", icon: "fa-crown" },
-            { cat: "Spa", name: "Deep Tissue Scalp", price: "3,500", icon: "fa-hands" },
-            { cat: "Spa", name: "Follicle Recovery", price: "6,000", icon: "fa-vial" }
-        ];
-
-        const reviews = [
-            { name: "Hassan Raza", msg: "Best fade in Lahore. The carbon vibe is amazing." },
-            { name: "Omer Ali", msg: "Professional service and attention to detail." },
-            { name: "Zain Malik", msg: "The Nikkah grooming package made my day perfect." },
-            { name: "Bilal K.", msg: "Top tier aesthetic. Truly out of the box." },
-            { name: "Saad Sheikh", msg: "Elite environment. Selo is a master of his craft." },
-            { name: "Mustafa Q.", msg: "The facial treatment is highly recommended." }
-        ];
-
-        const fontCombos = [
-            { name: "Classic Elegance", heading: "'Cinzel', serif", body: "'Outfit', sans-serif" },
-            { name: "Modern Luxury", heading: "'Playfair Display', serif", body: "'Montserrat', sans-serif" },
-            { name: "Clean Contemporary", heading: "'Raleway', sans-serif", body: "'Inter', sans-serif" },
-            { name: "Bold Statement", heading: "'Bebas Neue', sans-serif", body: "'Poppins', sans-serif" },
-            { name: "Refined Traditional", heading: "'Cormorant Garamond', serif", body: "'Raleway', sans-serif" },
-            { name: "Sleek Minimalist", heading: "'Montserrat', sans-serif", body: "'Inter', sans-serif" },
-            { name: "Timeless Classic", heading: "'Libre Baskerville', serif", body: "'Outfit', sans-serif" },
-            { name: "Urban Chic", heading: "'Bebas Neue', sans-serif", body: "'Montserrat', sans-serif" },
-            { name: "Sophisticated Edge", heading: "'Playfair Display', serif", body: "'Poppins', sans-serif" },
-            { name: "Executive Style", heading: "'Cormorant Garamond', serif", body: "'Inter', sans-serif" }
-        ];
-
-        const buttonStyles = [
-            { name: "Solid Fill", radius: "0px", className: "btn-solid" },
-            { name: "Rounded", radius: "8px", className: "btn-solid" },
-            { name: "Pill Shape", radius: "50px", className: "btn-solid" },
-            { name: "Outline", radius: "0px", className: "btn-outline" },
-            { name: "Outline Rounded", radius: "8px", className: "btn-outline" },
-            { name: "Gradient", radius: "8px", className: "btn-gradient" },
-            { name: "Glow Effect", radius: "8px", className: "btn-glow" },
-            { name: "3D Effect", radius: "6px", className: "btn-3d" },
-            { name: "Sharp Edges", radius: "0px", className: "btn-solid" },
-            { name: "Soft Rounded", radius: "12px", className: "btn-solid" }
-        ];
-
-        const themes = [
-            // DARK THEMES (30 variations)
-            { name: "Original Gold", p: "#D4AF37", b: "#0d0d0d", t: "#ffffff", c: "rgba(255,255,255,0.04)", btnBg: "#D4AF37", btnText: "#000000", btnHover: "#f0c959", light: false },
-            { name: "Obsidian Silver", p: "#C0C0C0", b: "#050505", t: "#ffffff", c: "rgba(255,255,255,0.03)", btnBg: "#C0C0C0", btnText: "#000000", btnHover: "#d4d4d4", light: false },
-            { name: "Midnight Navy", p: "#4fc3f7", b: "#0a111a", t: "#ffffff", c: "rgba(79,195,247,0.05)", btnBg: "#4fc3f7", btnText: "#000000", btnHover: "#81d4fa", light: false },
-            { name: "Deep Amethyst", p: "#bb86fc", b: "#0f0113", t: "#ffffff", c: "rgba(187,134,252,0.05)", btnBg: "#bb86fc", btnText: "#000000", btnHover: "#d1a3ff", light: false },
-            { name: "Forest Emerald", p: "#2ecc71", b: "#06130b", t: "#ffffff", c: "rgba(46,204,113,0.05)", btnBg: "#2ecc71", btnText: "#000000", btnHover: "#54d98c", light: false },
-            { name: "Inferno Red", p: "#ff4d4d", b: "#120505", t: "#ffffff", c: "rgba(255,77,77,0.05)", btnBg: "#ff4d4d", btnText: "#ffffff", btnHover: "#ff7a7a", light: false },
-            { name: "Titanium Blue", p: "#00d2ff", b: "#080c12", t: "#ffffff", c: "rgba(0,210,255,0.05)", btnBg: "#00d2ff", btnText: "#000000", btnHover: "#33ddff", light: false },
-            { name: "Burnt Copper", p: "#e67e22", b: "#140e0a", t: "#ffffff", c: "rgba(230,126,34,0.05)", btnBg: "#e67e22", btnText: "#ffffff", btnHover: "#f39c12", light: false },
-            { name: "Neon Matrix", p: "#39ff14", b: "#000000", t: "#ffffff", c: "rgba(57,255,20,0.05)", btnBg: "#39ff14", btnText: "#000000", btnHover: "#5fff47", light: false },
-            { name: "Slate Stealth", p: "#7f8c8d", b: "#1c1c1c", t: "#ffffff", c: "rgba(255,255,255,0.03)", btnBg: "#7f8c8d", btnText: "#ffffff", btnHover: "#95a5a6", light: false },
-            { name: "Royal Purple", p: "#9b59b6", b: "#0e0616", t: "#ffffff", c: "rgba(155,89,182,0.05)", btnBg: "#9b59b6", btnText: "#ffffff", btnHover: "#b07cc6", light: false },
-            { name: "Electric Cyan", p: "#00ffff", b: "#001a1a", t: "#ffffff", c: "rgba(0,255,255,0.05)", btnBg: "#00ffff", btnText: "#000000", btnHover: "#33ffff", light: false },
-            { name: "Magenta Pulse", p: "#ff00ff", b: "#1a001a", t: "#ffffff", c: "rgba(255,0,255,0.05)", btnBg: "#ff00ff", btnText: "#ffffff", btnHover: "#ff33ff", light: false },
-            { name: "Sunset Orange", p: "#ff6b35", b: "#140a06", t: "#ffffff", c: "rgba(255,107,53,0.05)", btnBg: "#ff6b35", btnText: "#ffffff", btnHover: "#ff8c61", light: false },
-            { name: "Arctic Ice", p: "#b3e5fc", b: "#051319", t: "#ffffff", c: "rgba(179,229,252,0.05)", btnBg: "#b3e5fc", btnText: "#000000", btnHover: "#d4f1fc", light: false },
-            { name: "Toxic Green", p: "#76ff03", b: "#0a1500", t: "#ffffff", c: "rgba(118,255,3,0.05)", btnBg: "#76ff03", btnText: "#000000", btnHover: "#9eff4d", light: false },
-            { name: "Blood Moon", p: "#d32f2f", b: "#1a0404", t: "#ffffff", c: "rgba(211,47,47,0.05)", btnBg: "#d32f2f", btnText: "#ffffff", btnHover: "#e57373", light: false },
-            { name: "Golden Hour", p: "#ffa726", b: "#1a0f02", t: "#ffffff", c: "rgba(255,167,38,0.05)", btnBg: "#ffa726", btnText: "#000000", btnHover: "#ffb74d", light: false },
-            { name: "Deep Ocean", p: "#006064", b: "#000d0f", t: "#ffffff", c: "rgba(0,96,100,0.05)", btnBg: "#00acc1", btnText: "#ffffff", btnHover: "#26c6da", light: false },
-            { name: "Velvet Rose", p: "#ec407a", b: "#1a050f", t: "#ffffff", c: "rgba(236,64,122,0.05)", btnBg: "#ec407a", btnText: "#ffffff", btnHover: "#f06292", light: false },
-            { name: "Charcoal Lime", p: "#cddc39", b: "#0f1003", t: "#ffffff", c: "rgba(205,220,57,0.05)", btnBg: "#cddc39", btnText: "#000000", btnHover: "#d4e157", light: false },
-            { name: "Deep Teal", p: "#00897b", b: "#001210", t: "#ffffff", c: "rgba(0,137,123,0.05)", btnBg: "#00897b", btnText: "#ffffff", btnHover: "#26a69a", light: false },
-            { name: "Amber Glow", p: "#ff8f00", b: "#1a0f00", t: "#ffffff", c: "rgba(255,143,0,0.05)", btnBg: "#ff8f00", btnText: "#000000", btnHover: "#ffa726", light: false },
-            { name: "Cosmic Violet", p: "#7c4dff", b: "#0d0619", t: "#ffffff", c: "rgba(124,77,255,0.05)", btnBg: "#7c4dff", btnText: "#ffffff", btnHover: "#9575ff", light: false },
-            { name: "Steel Blue", p: "#546e7a", b: "#0a0f11", t: "#ffffff", c: "rgba(84,110,122,0.05)", btnBg: "#546e7a", btnText: "#ffffff", btnHover: "#78909c", light: false },
-            { name: "Ruby Red", p: "#c62828", b: "#190303", t: "#ffffff", c: "rgba(198,40,40,0.05)", btnBg: "#c62828", btnText: "#ffffff", btnHover: "#e53935", light: false },
-            { name: "Jade Green", p: "#00c853", b: "#001a08", t: "#ffffff", c: "rgba(0,200,83,0.05)", btnBg: "#00c853", btnText: "#000000", btnHover: "#00e676", light: false },
-            { name: "Indigo Night", p: "#3949ab", b: "#050816", t: "#ffffff", c: "rgba(57,73,171,0.05)", btnBg: "#3949ab", btnText: "#ffffff", btnHover: "#5c6bc0", light: false },
-            { name: "Bronze Age", p: "#a1887f", b: "#100e0d", t: "#ffffff", c: "rgba(161,136,127,0.05)", btnBg: "#a1887f", btnText: "#ffffff", btnHover: "#bcaaa4", light: false },
-            { name: "Neon Pink", p: "#ff4081", b: "#1a0510", t: "#ffffff", c: "rgba(255,64,129,0.05)", btnBg: "#ff4081", btnText: "#ffffff", btnHover: "#ff5a9e", light: false },
+            // ============================================
+            // ENCRYPTED CONTENT INJECTION
+            // ============================================
             
-            // LIGHT THEMES (30 variations)
-            { name: "Champagne White", p: "#D4AF37", b: "#fcfcf7", t: "#1a1a1a", c: "#ffffff", btnBg: "#D4AF37", btnText: "#000000", btnHover: "#e6c04e", light: true },
-            { name: "Pure Minimal", p: "#000000", b: "#ffffff", t: "#000000", c: "#f9f9f9", btnBg: "#000000", btnText: "#ffffff", btnHover: "#333333", light: true },
-            { name: "Soft Cloud", p: "#3498db", b: "#f0f4f8", t: "#2c3e50", c: "#ffffff", btnBg: "#3498db", btnText: "#ffffff", btnHover: "#5dade2", light: true },
-            { name: "Rose Quartz", p: "#e91e63", b: "#fff5f8", t: "#333333", c: "#ffffff", btnBg: "#e91e63", btnText: "#ffffff", btnHover: "#f06292", light: true },
-            { name: "Desert Sand", p: "#8d6e63", b: "#faf7f2", t: "#3e2723", c: "#ffffff", btnBg: "#8d6e63", btnText: "#ffffff", btnHover: "#a1887f", light: true },
-            { name: "Mint Fresh", p: "#00b894", b: "#f1fdf9", t: "#2d3436", c: "#ffffff", btnBg: "#00b894", btnText: "#ffffff", btnHover: "#00d2a0", light: true },
-            { name: "Sky Glass", p: "#0984e3", b: "#f0f8ff", t: "#2d3436", c: "#ffffff", btnBg: "#0984e3", btnText: "#ffffff", btnHover: "#4fa3f5", light: true },
-            { name: "Lavender Pearl", p: "#6c5ce7", b: "#f7f6ff", t: "#2d3436", c: "#ffffff", btnBg: "#6c5ce7", btnText: "#ffffff", btnHover: "#9083f0", light: true },
-            { name: "Classic Paper", p: "#2f3640", b: "#f5f6fa", t: "#2f3640", c: "#ffffff", btnBg: "#2f3640", btnText: "#ffffff", btnHover: "#57606f", light: true },
-            { name: "Peach Glow", p: "#e17055", b: "#fffaf0", t: "#2d3436", c: "#ffffff", btnBg: "#e17055", btnText: "#ffffff", btnHover: "#ee9677", light: true },
-            { name: "Ocean Breeze", p: "#0abde3", b: "#f0fbff", t: "#2d3436", c: "#ffffff", btnBg: "#0abde3", btnText: "#ffffff", btnHover: "#48cfec", light: true },
-            { name: "Coral Sunset", p: "#ff7675", b: "#fff5f5", t: "#2d3436", c: "#ffffff", btnBg: "#ff7675", btnText: "#ffffff", btnHover: "#ff9f9e", light: true },
-            { name: "Forest Mist", p: "#218c74", b: "#f1f9f6", t: "#2d3436", c: "#ffffff", btnBg: "#218c74", btnText: "#ffffff", btnHover: "#33d9b2", light: true },
-            { name: "Honey Gold", p: "#f39c12", b: "#fffbf0", t: "#2d3436", c: "#ffffff", btnBg: "#f39c12", btnText: "#ffffff", btnHover: "#f5b041", light: true },
-            { name: "Berry Cream", p: "#c44569", b: "#fff0f5", t: "#2d3436", c: "#ffffff", btnBg: "#c44569", btnText: "#ffffff", btnHover: "#d6698b", light: true },
-            { name: "Sage Cream", p: "#6c7a89", b: "#f8f9fa", t: "#2d3436", c: "#ffffff", btnBg: "#6c7a89", btnText: "#ffffff", btnHover: "#95a5a6", light: true },
-            { name: "Lemon Chiffon", p: "#fbc531", b: "#fffef0", t: "#2d3436", c: "#ffffff", btnBg: "#fbc531", btnText: "#000000", btnHover: "#fcd968", light: true },
-            { name: "Plum Blossom", p: "#8e44ad", b: "#faf5fc", t: "#2d3436", c: "#ffffff", btnBg: "#8e44ad", btnText: "#ffffff", btnHover: "#a569bd", light: true },
-            { name: "Turquoise Bay", p: "#16a085", b: "#f0faf8", t: "#2d3436", c: "#ffffff", btnBg: "#16a085", btnText: "#ffffff", btnHover: "#1abc9c", light: true },
-            { name: "Warm Taupe", p: "#95a5a6", b: "#f8f9fa", t: "#2d3436", c: "#ffffff", btnBg: "#95a5a6", btnText: "#ffffff", btnHover: "#b2bec3", light: true },
-            { name: "Cherry Blossom", p: "#fd79a8", b: "#fff8fb", t: "#2d3436", c: "#ffffff", btnBg: "#fd79a8", btnText: "#ffffff", btnHover: "#fda3c1", light: true },
-            { name: "Seafoam", p: "#55efc4", b: "#f0fef9", t: "#2d3436", c: "#ffffff", btnBg: "#55efc4", btnText: "#000000", btnHover: "#81f5d5", light: true },
-            { name: "Slate Gray", p: "#636e72", b: "#f5f6f7", t: "#2d3436", c: "#ffffff", btnBg: "#636e72", btnText: "#ffffff", btnHover: "#7f8c8d", light: true },
-            { name: "Apricot", p: "#fab1a0", b: "#fffaf8", t: "#2d3436", c: "#ffffff", btnBg: "#fab1a0", btnText: "#ffffff", btnHover: "#fcc5b5", light: true },
-            { name: "Steel", p: "#718093", b: "#f7f8f9", t: "#2d3436", c: "#ffffff", btnBg: "#718093", btnText: "#ffffff", btnHover: "#95a5a6", light: true },
-            { name: "Iris", p: "#5f27cd", b: "#f8f5ff", t: "#2d3436", c: "#ffffff", btnBg: "#5f27cd", btnText: "#ffffff", btnHover: "#7d4ee0", light: true },
-            { name: "Pistachio", p: "#6ab04c", b: "#f7fcf5", t: "#2d3436", c: "#ffffff", btnBg: "#6ab04c", btnText: "#ffffff", btnHover: "#88c76a", light: true },
-            { name: "Dusty Rose", p: "#d63031", b: "#fff5f5", t: "#2d3436", c: "#ffffff", btnBg: "#d63031", btnText: "#ffffff", btnHover: "#e35d5e", light: true },
-            { name: "Powder Blue", p: "#74b9ff", b: "#f5faff", t: "#2d3436", c: "#ffffff", btnBg: "#74b9ff", btnText: "#000000", btnHover: "#a0cdff", light: true },
-            { name: "Champagne", p: "#d4a373", b: "#fdf9f4", t: "#2d3436", c: "#ffffff", btnBg: "#d4a373", btnText: "#ffffff", btnHover: "#dfb891", light: true }
-        ];
-
-        let currentButtonStyle = 0;
-        let currentFontCombo = 0;
-
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('active');
-        }
-
-        function toggleThemePanel() {
-            document.getElementById('theme-sidebar').classList.toggle('open');
-        }
-
-        function applyTheme(idx) {
-            const t = themes[idx];
-            const root = document.documentElement.style;
-            root.setProperty('--primary', t.p);
-            root.setProperty('--bg', t.b);
-            root.setProperty('--text', t.t);
-            root.setProperty('--card', t.c);
-            root.setProperty('--border', t.p + '4D');
-            root.setProperty('--subtext', t.light ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)');
-            root.setProperty('--button-bg', t.btnBg);
-            root.setProperty('--button-text', t.btnText);
-            root.setProperty('--button-hover', t.btnHover);
-            
-            if(t.light) document.body.classList.add('light-theme');
-            else document.body.classList.remove('light-theme');
-        }
-
-        function applyFontCombo(idx) {
-            currentFontCombo = idx;
-            const f = fontCombos[idx];
-            const root = document.documentElement.style;
-            root.setProperty('--font-heading', f.heading);
-            root.setProperty('--font-body', f.body);
-        }
-
-        function applyButtonStyle(idx) {
-            currentButtonStyle = idx;
-            const bs = buttonStyles[idx];
-            const root = document.documentElement.style;
-            root.setProperty('--button-radius', bs.radius);
-            
-            document.querySelectorAll('.btn-primary').forEach(btn => {
-                btn.classList.remove('btn-solid', 'btn-outline', 'btn-gradient', 'btn-glow', 'btn-3d');
-                btn.classList.add(bs.className);
-            });
-        }
-
-        function generateRandomStyle() {
-            const btn = document.getElementById('random-btn');
-            btn.classList.add('randomizing');
-            
+            // Simulate delay to prevent instant scraping
             setTimeout(() => {
-                const randomTheme = Math.floor(Math.random() * themes.length);
-                applyTheme(randomTheme);
+                // This would normally be heavily obfuscated and encrypted
+                // For demonstration, we're using a simple version
                 
-                const randomFont = Math.floor(Math.random() * fontCombos.length);
-                applyFontCombo(randomFont);
-                
-                const randomButton = Math.floor(Math.random() * buttonStyles.length);
-                applyButtonStyle(randomButton);
-                
-                btn.classList.remove('randomizing');
-                
-                showNotification(`Random Style Applied: ${themes[randomTheme].name} + ${fontCombos[randomFont].name} + ${buttonStyles[randomButton].name}`);
-            }, 500);
-        }
+                const encryptedHTML = `
+                <header class="fixed w-full z-50 bg-black/80 backdrop-blur-xl border-b border-[--border]">
+                    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+                        <a href="#" class="flex items-center gap-3">
+                            <img src="logo.png" alt="Hair by Selo Logo" class="logo-img">
+                        </a>
+                        
+                        <nav class="hidden md:flex gap-10 text-[10px] uppercase tracking-[0.2em] font-medium">
+                            <a href="#home" class="hover:text-[--primary] transition">Home</a>
+                            <a href="#services" class="hover:text-[--primary] transition">Services</a>
+                            <a href="#reviews" class="hover:text-[--primary] transition">Reviews</a>
+                            <a href="#footer" class="hover:text-[--primary] transition">Contact</a>
+                            <button onclick="toggleThemePanel()" class="text-[--primary]"><i class="fas fa-palette"></i> Themes</button>
+                        </nav>
 
-        function showNotification(message) {
-            const notif = document.createElement('div');
-            notif.className = 'fixed top-24 right-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-lg shadow-2xl z-[9999] max-w-sm';
-            notif.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <i class="fas fa-check-circle text-xl"></i>
-                    <p class="text-sm font-medium">${message}</p>
+                        <div class="flex items-center gap-5">
+                            <a href="https://wa.me/yournumber" class="hidden md:block btn-primary px-6 py-2 text-[10px] font-bold uppercase">WhatsApp Book</a>
+                            <button onclick="toggleMobileMenu()" class="md:hidden text-2xl text-[--primary]"><i class="fas fa-bars"></i></button>
+                        </div>
+                    </div>
+                </header>
+
+                <div id="mobile-menu" class="fixed inset-0 bg-black z-[100] flex flex-col items-center justify-center gap-8 md:hidden">
+                    <button onclick="toggleMobileMenu()" class="absolute top-8 right-8 text-3xl text-[--primary]"><i class="fas fa-times"></i></button>
+                    <img src="logo.png" alt="Hair by Selo Logo" class="logo-img mb-4">
+                    <a href="#home" onclick="toggleMobileMenu()" class="serif text-3xl">Home</a>
+                    <a href="#services" onclick="toggleMobileMenu()" class="serif text-3xl">Services</a>
+                    <a href="#reviews" onclick="toggleMobileMenu()" class="serif text-3xl">Reviews</a>
+                    <a href="#footer" onclick="toggleMobileMenu()" class="serif text-3xl">Contact</a>
+                    <button onclick="toggleThemePanel(); toggleMobileMenu();" class="btn-primary px-10 py-3 font-bold uppercase">Switch Theme</button>
                 </div>
-            `;
-            document.body.appendChild(notif);
-            
-            setTimeout(() => {
-                notif.style.opacity = '0';
-                notif.style.transition = 'opacity 0.3s';
-                setTimeout(() => notif.remove(), 300);
-            }, 3000);
-        }
 
-        function resetTheme() { 
-            applyTheme(0);
-            applyFontCombo(0);
-            applyButtonStyle(0);
-            showNotification('Reset to Original Style');
-        }
-
-        function renderServices(filter = "All") {
-            const container = document.getElementById('service-container');
-            container.innerHTML = '';
-            const filtered = filter === "All" ? services : services.filter(s => s.cat === filter);
-            
-            filtered.forEach(s => {
-                container.innerHTML += `
-                    <div class="glass-card p-10 flex flex-col items-center text-center">
-                        <i class="fas ${s.icon} text-3xl mb-6 text-[--primary]"></i>
-                        <h3 class="serif text-xl mb-3">${s.name}</h3>
-                        <p class="text-[10px] uppercase tracking-widest opacity-40 mb-6">Professional ${s.cat} Service</p>
-                        <div class="text-[--primary] font-bold text-2xl tracking-tighter">Rs. ${s.price}</div>
-                        <button class="mt-8 border border-white/10 px-8 py-3 text-[9px] uppercase tracking-widest hover:border-[--primary] transition">Book</button>
-                    </div>
-                `;
-            });
-        }
-
-        function init() {
-            const filterBar = document.getElementById('filter-bar');
-            categories.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = "border border-white/10 px-4 py-3 text-[9px] uppercase tracking-widest hover:border-[--primary] transition";
-                btn.innerHTML = `<i class="fas ${categoryIcons[cat]} category-icon"></i>${cat}`;
-                btn.onclick = () => {
-                    document.querySelectorAll('#filter-bar button').forEach(b => {
-                        b.classList.remove('btn-primary');
-                        b.style.background = '';
-                        b.style.color = '';
-                    });
-                    btn.classList.add('btn-primary');
-                    renderServices(cat);
-                };
-                if(cat === "All") btn.classList.add('btn-primary');
-                filterBar.appendChild(btn);
-            });
-
-            const rContainer = document.getElementById('review-container');
-            reviews.forEach(rv => {
-                rContainer.innerHTML += `
-                    <div class="glass-card p-8">
-                        <div class="flex gap-1 text-[--primary] text-[10px] mb-5">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <section id="home" class="min-h-screen flex items-center justify-center text-center px-4 pt-20">
+                    <div>
+                        <div class="inline-block border border-[--primary] px-8 py-2 mb-8">
+                            <span class="text-[10px] uppercase tracking-[0.5em] text-[--primary]">Master Barbering</span>
                         </div>
-                        <p class="text-sm font-light italic opacity-70 mb-8 leading-relaxed">"${rv.msg}"</p>
-                        <div class="flex items-center gap-4">
-                            <div class="w-8 h-[1px] bg-[--primary]"></div>
-                            <span class="text-[10px] uppercase font-bold tracking-widest text-[--primary]">${rv.name}</span>
+                        <h1 class="serif text-6xl md:text-9xl font-bold mb-6 tracking-tight leading-none">CRAFTING<br>IDENTITY</h1>
+                        <p class="max-w-lg mx-auto text-sm md:text-base opacity-60 mb-10 font-light leading-relaxed">High-performance grooming in a bespoke carbon environment. Lahore's most exclusive gentleman's studio.</p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <a href="#services" class="btn-primary px-12 py-5 text-[10px] font-bold uppercase tracking-widest">View Menu</a>
+                            <button onclick="toggleThemePanel()" class="border border-white/20 px-12 py-5 text-[10px] font-bold uppercase tracking-widest hover:border-[--primary] transition">Change Theme</button>
                         </div>
                     </div>
+                </section>
+
+                <section id="services" class="max-w-7xl mx-auto px-6 py-32">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-20 gap-8">
+                        <h2 class="serif text-4xl text-center md:text-left">Elite <span style="color: var(--primary)">Services</span></h2>
+                        <div class="grid grid-cols-3 md:flex gap-3 w-full md:w-auto flex-wrap" id="filter-bar"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="service-container"></div>
+                </section>
+
+                <section id="reviews" class="bg-black/20 py-32 px-6">
+                    <div class="max-w-7xl mx-auto">
+                        <h2 class="serif text-center text-3xl mb-20 uppercase tracking-[0.3em]">Client Experiences</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="review-container"></div>
+                    </div>
+                </section>
+
+                <footer id="footer" class="pt-32 pb-10 px-6 border-t border-[--border]">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
+                            <div class="col-span-1 md:col-span-2">
+                                <img src="logo.png" alt="Hair by Selo Logo" class="logo-img mb-8">
+                                <p class="opacity-50 text-sm max-w-sm leading-7 mb-10">Premium grooming services blending traditional artistry with modern sophistication. Dedicated to the discerning gentleman.</p>
+                                <div class="flex gap-8 text-2xl">
+                                    <a href="#" class="hover:text-[--primary]"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" class="hover:text-[--primary]"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="#" class="hover:text-[--primary]"><i class="fab fa-tiktok"></i></a>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] uppercase font-bold tracking-[0.3em] mb-8 text-[--primary]">Contact</h4>
+                                <ul class="text-sm space-y-4 opacity-70">
+                                    <li>Phase 5, DHA, Lahore</li>
+                                    <li>+92 321 4455667</li>
+                                    <li>info@hairbyselo.com</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-[10px] uppercase font-bold tracking-[0.3em] mb-8 text-[--primary]">Hours</h4>
+                                <ul class="text-sm space-y-4 opacity-70">
+                                    <li>Mon - Sat: 11:00 - 22:00</li>
+                                    <li>Sunday: 14:00 - 21:00</li>
+                                    <li class="pt-4 text-[--primary]">Open 7 Days a Week</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-center pt-10 border-t border-white/5 opacity-30 text-[9px] uppercase tracking-widest">
+                            © 2026 Hair by Selo Studio. All Rights Reserved.
+                        </div>
+                    </div>
+                </footer>
+
+                <div id="theme-sidebar">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-10">
+                            <h3 class="serif text-lg text-[--primary]">Style Customizer</h3>
+                            <button onclick="toggleThemePanel()" class="text-xl">&times;</button>
+                        </div>
+
+                        <div class="mb-10 p-5 bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg">
+                            <h4 class="text-[10px] uppercase opacity-60 mb-4 tracking-widest text-center">
+                                <i class="fas fa-wand-magic-sparkles"></i> Random Style Generator
+                            </h4>
+                            <button onclick="generateRandomStyle()" id="random-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 text-[11px] uppercase tracking-wider hover:from-purple-700 hover:to-pink-700 transition-all rounded-lg">
+                                <i class="fas fa-shuffle"></i> Generate Random Style
+                            </button>
+                            <p class="text-[9px] text-center mt-3 opacity-40">Creates unique combinations instantly</p>
+                        </div>
+
+                        <div class="mb-8">
+                            <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Font Combinations</h4>
+                            <div id="font-swatches"></div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Button Styles</h4>
+                            <div id="button-swatches"></div>
+                        </div>
+
+                        <div class="mb-8">
+                            <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Elite Dark Themes</h4>
+                            <div id="dark-swatches"></div>
+                        </div>
+
+                        <div class="mb-10">
+                            <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Premium Light Themes</h4>
+                            <div id="light-swatches"></div>
+                        </div>
+                        
+                        <button onclick="resetTheme()" class="w-full btn-primary font-bold py-3 text-[10px] uppercase">Reset to Original</button>
+                    </div>
+                </div>
                 `;
-            });
 
-            const fontDiv = document.getElementById('font-swatches');
-            fontCombos.forEach((f, i) => {
-                fontDiv.innerHTML += `
-                    <button class="swatch-btn" onclick="applyFontCombo(${i})">
-                        <i class="fas fa-font"></i>
-                        <span>${f.name}</span>
-                    </button>`;
-            });
+                // Inject content
+                document.getElementById('dynamic-content').innerHTML = encryptedHTML;
+                
+                // Hide loading screen
+                document.getElementById('loading-screen').classList.add('hidden');
+                document.getElementById('app-container').classList.add('loaded');
 
-            const buttonDiv = document.getElementById('button-swatches');
-            buttonStyles.forEach((bs, i) => {
-                buttonDiv.innerHTML += `
-                    <button class="swatch-btn" onclick="applyButtonStyle(${i})">
-                        <i class="fas fa-circle"></i>
-                        <span>${bs.name}</span>
-                    </button>`;
-            });
+                // Initialize the app
+                initializeApp();
+            }, 800); // Delay to simulate loading
 
-            const darkDiv = document.getElementById('dark-swatches');
-            const lightDiv = document.getElementById('light-swatches');
-            themes.forEach((t, i) => {
-                const btn = `
-                    <button class="swatch-btn" onclick="applyTheme(${i})">
-                        <div style="width:16px; height:16px; background:${t.p}; border-radius:50%; border: 1px solid rgba(255,255,255,0.1)"></div>
-                        <span>${t.name}</span>
-                    </button>`;
-                if(t.light) lightDiv.innerHTML += btn;
-                else darkDiv.innerHTML += btn;
-            });
+        })();
 
-            renderServices();
+        // ============================================
+        // MAIN APPLICATION CODE
+        // ============================================
+        
+        function initializeApp() {
+            const categoryIcons = {
+                "All": "fa-grid-2",
+                "Hair": "fa-scissors",
+                "Beard": "fa-face-smile-beam",
+                "Skin": "fa-droplet",
+                "Grooming": "fa-gem",
+                "Spa": "fa-spa"
+            };
+
+            const categories = ["All", "Hair", "Beard", "Skin", "Grooming", "Spa"];
+            
+            const services = [
+                { cat: "Hair", name: "Signature Fade", price: "3,000", icon: "fa-cut" },
+                { cat: "Hair", name: "Scissor Architecture", price: "4,000", icon: "fa-scissors" },
+                { cat: "Beard", name: "Hot Towel Sculpt", price: "2,000", icon: "fa-soap" },
+                { cat: "Beard", name: "Beard Detox", price: "1,500", icon: "fa-wind" },
+                { cat: "Skin", name: "Carbon Oxygen Facial", price: "8,500", icon: "fa-face-smile" },
+                { cat: "Skin", name: "Ice Mask Therapy", price: "5,000", icon: "fa-snowflake" },
+                { cat: "Grooming", name: "The Royal Nikkah", price: "20,000", icon: "fa-crown" },
+                { cat: "Spa", name: "Deep Tissue Scalp", price: "3,500", icon: "fa-hands" },
+                { cat: "Spa", name: "Follicle Recovery", price: "6,000", icon: "fa-vial" }
+            ];
+
+            const reviews = [
+                { name: "Hassan Raza", msg: "Best fade in Lahore. The carbon vibe is amazing." },
+                { name: "Omer Ali", msg: "Professional service and attention to detail." },
+                { name: "Zain Malik", msg: "The Nikkah grooming package made my day perfect." },
+                { name: "Bilal K.", msg: "Top tier aesthetic. Truly out of the box." },
+                { name: "Saad Sheikh", msg: "Elite environment. Selo is a master of his craft." },
+                { name: "Mustafa Q.", msg: "The facial treatment is highly recommended." }
+            ];
+
+            const fontCombos = [
+                { name: "Classic Elegance", heading: "'Cinzel', serif", body: "'Outfit', sans-serif" },
+                { name: "Modern Luxury", heading: "'Playfair Display', serif", body: "'Montserrat', sans-serif" },
+                { name: "Clean Contemporary", heading: "'Raleway', sans-serif", body: "'Inter', sans-serif" },
+                { name: "Bold Statement", heading: "'Bebas Neue', sans-serif", body: "'Poppins', sans-serif" },
+                { name: "Refined Traditional", heading: "'Cormorant Garamond', serif", body: "'Raleway', sans-serif" },
+                { name: "Sleek Minimalist", heading: "'Montserrat', sans-serif", body: "'Inter', sans-serif" },
+                { name: "Timeless Classic", heading: "'Libre Baskerville', serif", body: "'Outfit', sans-serif" },
+                { name: "Urban Chic", heading: "'Bebas Neue', sans-serif", body: "'Montserrat', sans-serif" },
+                { name: "Sophisticated Edge", heading: "'Playfair Display', serif", body: "'Poppins', sans-serif" },
+                { name: "Executive Style", heading: "'Cormorant Garamond', serif", body: "'Inter', sans-serif" }
+            ];
+
+            const buttonStyles = [
+                { name: "Solid Fill", radius: "0px", className: "btn-solid" },
+                { name: "Rounded", radius: "8px", className: "btn-solid" },
+                { name: "Pill Shape", radius: "50px", className: "btn-solid" },
+                { name: "Outline", radius: "0px", className: "btn-outline" },
+                { name: "Outline Rounded", radius: "8px", className: "btn-outline" },
+                { name: "Gradient", radius: "8px", className: "btn-gradient" },
+                { name: "Glow Effect", radius: "8px", className: "btn-glow" },
+                { name: "3D Effect", radius: "6px", className: "btn-3d" },
+                { name: "Sharp Edges", radius: "0px", className: "btn-solid" },
+                { name: "Soft Rounded", radius: "12px", className: "btn-solid" }
+            ];
+
+            const themes = [
+                { name: "Original Gold", p: "#D4AF37", b: "#0d0d0d", t: "#ffffff", c: "rgba(255,255,255,0.04)", btnBg: "#D4AF37", btnText: "#000000", btnHover: "#f0c959", light: false },
+                { name: "Obsidian Silver", p: "#C0C0C0", b: "#050505", t: "#ffffff", c: "rgba(255,255,255,0.03)", btnBg: "#C0C0C0", btnText: "#000000", btnHover: "#d4d4d4", light: false },
+                { name: "Midnight Navy", p: "#4fc3f7", b: "#0a111a", t: "#ffffff", c: "rgba(79,195,247,0.05)", btnBg: "#4fc3f7", btnText: "#000000", btnHover: "#81d4fa", light: false },
+                { name: "Deep Amethyst", p: "#bb86fc", b: "#0f0113", t: "#ffffff", c: "rgba(187,134,252,0.05)", btnBg: "#bb86fc", btnText: "#000000", btnHover: "#d1a3ff", light: false },
+                { name: "Forest Emerald", p: "#2ecc71", b: "#06130b", t: "#ffffff", c: "rgba(46,204,113,0.05)", btnBg: "#2ecc71", btnText: "#000000", btnHover: "#54d98c", light: false },
+                { name: "Inferno Red", p: "#ff4d4d", b: "#120505", t: "#ffffff", c: "rgba(255,77,77,0.05)", btnBg: "#ff4d4d", btnText: "#ffffff", btnHover: "#ff7a7a", light: false },
+                { name: "Titanium Blue", p: "#00d2ff", b: "#080c12", t: "#ffffff", c: "rgba(0,210,255,0.05)", btnBg: "#00d2ff", btnText: "#000000", btnHover: "#33ddff", light: false },
+                { name: "Burnt Copper", p: "#e67e22", b: "#140e0a", t: "#ffffff", c: "rgba(230,126,34,0.05)", btnBg: "#e67e22", btnText: "#ffffff", btnHover: "#f39c12", light: false },
+                { name: "Neon Matrix", p: "#39ff14", b: "#000000", t: "#ffffff", c: "rgba(57,255,20,0.05)", btnBg: "#39ff14", btnText: "#000000", btnHover: "#5fff47", light: false },
+                { name: "Slate Stealth", p: "#7f8c8d", b: "#1c1c1c", t: "#ffffff", c: "rgba(255,255,255,0.03)", btnBg: "#7f8c8d", btnText: "#ffffff", btnHover: "#95a5a6", light: false },
+                { name: "Royal Purple", p: "#9b59b6", b: "#0e0616", t: "#ffffff", c: "rgba(155,89,182,0.05)", btnBg: "#9b59b6", btnText: "#ffffff", btnHover: "#b07cc6", light: false },
+                { name: "Electric Cyan", p: "#00ffff", b: "#001a1a", t: "#ffffff", c: "rgba(0,255,255,0.05)", btnBg: "#00ffff", btnText: "#000000", btnHover: "#33ffff", light: false },
+                { name: "Magenta Pulse", p: "#ff00ff", b: "#1a001a", t: "#ffffff", c: "rgba(255,0,255,0.05)", btnBg: "#ff00ff", btnText: "#ffffff", btnHover: "#ff33ff", light: false },
+                { name: "Sunset Orange", p: "#ff6b35", b: "#140a06", t: "#ffffff", c: "rgba(255,107,53,0.05)", btnBg: "#ff6b35", btnText: "#ffffff", btnHover: "#ff8c61", light: false },
+                { name: "Arctic Ice", p: "#b3e5fc", b: "#051319", t: "#ffffff", c: "rgba(179,229,252,0.05)", btnBg: "#b3e5fc", btnText: "#000000", btnHover: "#d4f1fc", light: false },
+                { name: "Toxic Green", p: "#76ff03", b: "#0a1500", t: "#ffffff", c: "rgba(118,255,3,0.05)", btnBg: "#76ff03", btnText: "#000000", btnHover: "#9eff4d", light: false },
+                { name: "Blood Moon", p: "#d32f2f", b: "#1a0404", t: "#ffffff", c: "rgba(211,47,47,0.05)", btnBg: "#d32f2f", btnText: "#ffffff", btnHover: "#e57373", light: false },
+                { name: "Golden Hour", p: "#ffa726", b: "#1a0f02", t: "#ffffff", c: "rgba(255,167,38,0.05)", btnBg: "#ffa726", btnText: "#000000", btnHover: "#ffb74d", light: false },
+                { name: "Deep Ocean", p: "#006064", b: "#000d0f", t: "#ffffff", c: "rgba(0,96,100,0.05)", btnBg: "#00acc1", btnText: "#ffffff", btnHover: "#26c6da", light: false },
+                { name: "Velvet Rose", p: "#ec407a", b: "#1a050f", t: "#ffffff", c: "rgba(236,64,122,0.05)", btnBg: "#ec407a", btnText: "#ffffff", btnHover: "#f06292", light: false },
+                { name: "Charcoal Lime", p: "#cddc39", b: "#0f1003", t: "#ffffff", c: "rgba(205,220,57,0.05)", btnBg: "#cddc39", btnText: "#000000", btnHover: "#d4e157", light: false },
+                { name: "Deep Teal", p: "#00897b", b: "#001210", t: "#ffffff", c: "rgba(0,137,123,0.05)", btnBg: "#00897b", btnText: "#ffffff", btnHover: "#26a69a", light: false },
+                { name: "Amber Glow", p: "#ff8f00", b: "#1a0f00", t: "#ffffff", c: "rgba(255,143,0,0.05)", btnBg: "#ff8f00", btnText: "#000000", btnHover: "#ffa726", light: false },
+                { name: "Cosmic Violet", p: "#7c4dff", b: "#0d0619", t: "#ffffff", c: "rgba(124,77,255,0.05)", btnBg: "#7c4dff", btnText: "#ffffff", btnHover: "#9575ff", light: false },
+                { name: "Steel Blue", p: "#546e7a", b: "#0a0f11", t: "#ffffff", c: "rgba(84,110,122,0.05)", btnBg: "#546e7a", btnText: "#ffffff", btnHover: "#78909c", light: false },
+                { name: "Ruby Red", p: "#c62828", b: "#190303", t: "#ffffff", c: "rgba(198,40,40,0.05)", btnBg: "#c62828", btnText: "#ffffff", btnHover: "#e53935", light: false },
+                { name: "Jade Green", p: "#00c853", b: "#001a08", t: "#ffffff", c: "rgba(0,200,83,0.05)", btnBg: "#00c853", btnText: "#000000", btnHover: "#00e676", light: false },
+                { name: "Indigo Night", p: "#3949ab", b: "#050816", t: "#ffffff", c: "rgba(57,73,171,0.05)", btnBg: "#3949ab", btnText: "#ffffff", btnHover: "#5c6bc0", light: false },
+                { name: "Bronze Age", p: "#a1887f", b: "#100e0d", t: "#ffffff", c: "rgba(161,136,127,0.05)", btnBg: "#a1887f", btnText: "#ffffff", btnHover: "#bcaaa4", light: false },
+                { name: "Neon Pink", p: "#ff4081", b: "#1a0510", t: "#ffffff", c: "rgba(255,64,129,0.05)", btnBg: "#ff4081", btnText: "#ffffff", btnHover: "#ff5a9e", light: false },
+                { name: "Champagne White", p: "#D4AF37", b: "#fcfcf7", t: "#1a1a1a", c: "#ffffff", btnBg: "#D4AF37", btnText: "#000000", btnHover: "#e6c04e", light: true },
+                { name: "Pure Minimal", p: "#000000", b: "#ffffff", t: "#000000", c: "#f9f9f9", btnBg: "#000000", btnText: "#ffffff", btnHover: "#333333", light: true },
+                { name: "Soft Cloud", p: "#3498db", b: "#f0f4f8", t: "#2c3e50", c: "#ffffff", btnBg: "#3498db", btnText: "#ffffff", btnHover: "#5dade2", light: true },
+                { name: "Rose Quartz", p: "#e91e63", b: "#fff5f8", t: "#333333", c: "#ffffff", btnBg: "#e91e63", btnText: "#ffffff", btnHover: "#f06292", light: true },
+                { name: "Desert Sand", p: "#8d6e63", b: "#faf7f2", t: "#3e2723", c: "#ffffff", btnBg: "#8d6e63", btnText: "#ffffff", btnHover: "#a1887f", light: true },
+                { name: "Mint Fresh", p: "#00b894", b: "#f1fdf9", t: "#2d3436", c: "#ffffff", btnBg: "#00b894", btnText: "#ffffff", btnHover: "#00d2a0", light: true },
+                { name: "Sky Glass", p: "#0984e3", b: "#f0f8ff", t: "#2d3436", c: "#ffffff", btnBg: "#0984e3", btnText: "#ffffff", btnHover: "#4fa3f5", light: true },
+                { name: "Lavender Pearl", p: "#6c5ce7", b: "#f7f6ff", t: "#2d3436", c: "#ffffff", btnBg: "#6c5ce7", btnText: "#ffffff", btnHover: "#9083f0", light: true },
+                { name: "Classic Paper", p: "#2f3640", b: "#f5f6fa", t: "#2f3640", c: "#ffffff", btnBg: "#2f3640", btnText: "#ffffff", btnHover: "#57606f", light: true },
+                { name: "Peach Glow", p: "#e17055", b: "#fffaf0", t: "#2d3436", c: "#ffffff", btnBg: "#e17055", btnText: "#ffffff", btnHover: "#ee9677", light: true },
+                { name: "Ocean Breeze", p: "#0abde3", b: "#f0fbff", t: "#2d3436", c: "#ffffff", btnBg: "#0abde3", btnText: "#ffffff", btnHover: "#48cfec", light: true },
+                { name: "Coral Sunset", p: "#ff7675", b: "#fff5f5", t: "#2d3436", c: "#ffffff", btnBg: "#ff7675", btnText: "#ffffff", btnHover: "#ff9f9e", light: true },
+                { name: "Forest Mist", p: "#218c74", b: "#f1f9f6", t: "#2d3436", c: "#ffffff", btnBg: "#218c74", btnText: "#ffffff", btnHover: "#33d9b2", light: true },
+                { name: "Honey Gold", p: "#f39c12", b: "#fffbf0", t: "#2d3436", c: "#ffffff", btnBg: "#f39c12", btnText: "#ffffff", btnHover: "#f5b041", light: true },
+                { name: "Berry Cream", p: "#c44569", b: "#fff0f5", t: "#2d3436", c: "#ffffff", btnBg: "#c44569", btnText: "#ffffff", btnHover: "#d6698b", light: true },
+                { name: "Sage Cream", p: "#6c7a89", b: "#f8f9fa", t: "#2d3436", c: "#ffffff", btnBg: "#6c7a89", btnText: "#ffffff", btnHover: "#95a5a6", light: true },
+                { name: "Lemon Chiffon", p: "#fbc531", b: "#fffef0", t: "#2d3436", c: "#ffffff", btnBg: "#fbc531", btnText: "#000000", btnHover: "#fcd968", light: true },
+                { name: "Plum Blossom", p: "#8e44ad", b: "#faf5fc", t: "#2d3436", c: "#ffffff", btnBg: "#8e44ad", btnText: "#ffffff", btnHover: "#a569bd", light: true },
+                { name: "Turquoise Bay", p: "#16a085", b: "#f0faf8", t: "#2d3436", c: "#ffffff", btnBg: "#16a085", btnText: "#ffffff", btnHover: "#1abc9c", light: true },
+                { name: "Warm Taupe", p: "#95a5a6", b: "#f8f9fa", t: "#2d3436", c: "#ffffff", btnBg: "#95a5a6", btnText: "#ffffff", btnHover: "#b2bec3", light: true },
+                { name: "Cherry Blossom", p: "#fd79a8", b: "#fff8fb", t: "#2d3436", c: "#ffffff", btnBg: "#fd79a8", btnText: "#ffffff", btnHover: "#fda3c1", light: true },
+                { name: "Seafoam", p: "#55efc4", b: "#f0fef9", t: "#2d3436", c: "#ffffff", btnBg: "#55efc4", btnText: "#000000", btnHover: "#81f5d5", light: true },
+                { name: "Slate Gray", p: "#636e72", b: "#f5f6f7", t: "#2d3436", c: "#ffffff", btnBg: "#636e72", btnText: "#ffffff", btnHover: "#7f8c8d", light: true },
+                { name: "Apricot", p: "#fab1a0", b: "#fffaf8", t: "#2d3436", c: "#ffffff", btnBg: "#fab1a0", btnText: "#ffffff", btnHover: "#fcc5b5", light: true },
+                { name: "Steel", p: "#718093", b: "#f7f8f9", t: "#2d3436", c: "#ffffff", btnBg: "#718093", btnText: "#ffffff", btnHover: "#95a5a6", light: true },
+                { name: "Iris", p: "#5f27cd", b: "#f8f5ff", t: "#2d3436", c: "#ffffff", btnBg: "#5f27cd", btnText: "#ffffff", btnHover: "#7d4ee0", light: true },
+                { name: "Pistachio", p: "#6ab04c", b: "#f7fcf5", t: "#2d3436", c: "#ffffff", btnBg: "#6ab04c", btnText: "#ffffff", btnHover: "#88c76a", light: true },
+                { name: "Dusty Rose", p: "#d63031", b: "#fff5f5", t: "#2d3436", c: "#ffffff", btnBg: "#d63031", btnText: "#ffffff", btnHover: "#e35d5e", light: true },
+                { name: "Powder Blue", p: "#74b9ff", b: "#f5faff", t: "#2d3436", c: "#ffffff", btnBg: "#74b9ff", btnText: "#000000", btnHover: "#a0cdff", light: true },
+                { name: "Champagne", p: "#d4a373", b: "#fdf9f4", t: "#2d3436", c: "#ffffff", btnBg: "#d4a373", btnText: "#ffffff", btnHover: "#dfb891", light: true }
+            ];
+
+            let currentButtonStyle = 0;
+            let currentFontCombo = 0;
+
+            window.toggleMobileMenu = function() {
+                document.getElementById('mobile-menu').classList.toggle('active');
+            };
+
+            window.toggleThemePanel = function() {
+                document.getElementById('theme-sidebar').classList.toggle('open');
+            };
+
+            window.applyTheme = function(idx) {
+                const t = themes[idx];
+                const root = document.documentElement.style;
+                root.setProperty('--primary', t.p);
+                root.setProperty('--bg', t.b);
+                root.setProperty('--text', t.t);
+                root.setProperty('--card', t.c);
+                root.setProperty('--border', t.p + '4D');
+                root.setProperty('--subtext', t.light ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)');
+                root.setProperty('--button-bg', t.btnBg);
+                root.setProperty('--button-text', t.btnText);
+                root.setProperty('--button-hover', t.btnHover);
+                
+                if(t.light) document.body.classList.add('light-theme');
+                else document.body.classList.remove('light-theme');
+            };
+
+            window.applyFontCombo = function(idx) {
+                currentFontCombo = idx;
+                const f = fontCombos[idx];
+                const root = document.documentElement.style;
+                root.setProperty('--font-heading', f.heading);
+                root.setProperty('--font-body', f.body);
+            };
+
+            window.applyButtonStyle = function(idx) {
+                currentButtonStyle = idx;
+                const bs = buttonStyles[idx];
+                const root = document.documentElement.style;
+                root.setProperty('--button-radius', bs.radius);
+                
+                document.querySelectorAll('.btn-primary').forEach(btn => {
+                    btn.classList.remove('btn-solid', 'btn-outline', 'btn-gradient', 'btn-glow', 'btn-3d');
+                    btn.classList.add(bs.className);
+                });
+            };
+
+            window.generateRandomStyle = function() {
+                const btn = document.getElementById('random-btn');
+                btn.classList.add('randomizing');
+                
+                setTimeout(() => {
+                    const randomTheme = Math.floor(Math.random() * themes.length);
+                    applyTheme(randomTheme);
+                    
+                    const randomFont = Math.floor(Math.random() * fontCombos.length);
+                    applyFontCombo(randomFont);
+                    
+                    const randomButton = Math.floor(Math.random() * buttonStyles.length);
+                    applyButtonStyle(randomButton);
+                    
+                    btn.classList.remove('randomizing');
+                    
+                    showNotification(`Random Style Applied: ${themes[randomTheme].name} + ${fontCombos[randomFont].name} + ${buttonStyles[randomButton].name}`);
+                }, 500);
+            };
+
+            window.showNotification = function(message) {
+                const notif = document.createElement('div');
+                notif.className = 'fixed top-24 right-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-lg shadow-2xl z-[9999] max-w-sm';
+                notif.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-check-circle text-xl"></i>
+                        <p class="text-sm font-medium">${message}</p>
+                    </div>
+                `;
+                document.body.appendChild(notif);
+                
+                setTimeout(() => {
+                    notif.style.opacity = '0';
+                    notif.style.transition = 'opacity 0.3s';
+                    setTimeout(() => notif.remove(), 300);
+                }, 3000);
+            };
+
+            window.resetTheme = function() { 
+                applyTheme(0);
+                applyFontCombo(0);
+                applyButtonStyle(0);
+                showNotification('Reset to Original Style');
+            };
+
+            function renderServices(filter = "All") {
+                const container = document.getElementById('service-container');
+                container.innerHTML = '';
+                const filtered = filter === "All" ? services : services.filter(s => s.cat === filter);
+                
+                filtered.forEach(s => {
+                    container.innerHTML += `
+                        <div class="glass-card p-10 flex flex-col items-center text-center">
+                            <i class="fas ${s.icon} text-3xl mb-6 text-[--primary]"></i>
+                            <h3 class="serif text-xl mb-3">${s.name}</h3>
+                            <p class="text-[10px] uppercase tracking-widest opacity-40 mb-6">Professional ${s.cat} Service</p>
+                            <div class="text-[--primary] font-bold text-2xl tracking-tighter">Rs. ${s.price}</div>
+                            <button class="mt-8 border border-white/10 px-8 py-3 text-[9px] uppercase tracking-widest hover:border-[--primary] transition">Book</button>
+                        </div>
+                    `;
+                });
+            }
+
+            function init() {
+                const filterBar = document.getElementById('filter-bar');
+                categories.forEach(cat => {
+                    const btn = document.createElement('button');
+                    btn.className = "border border-white/10 px-4 py-3 text-[9px] uppercase tracking-widest hover:border-[--primary] transition";
+                    btn.innerHTML = `<i class="fas ${categoryIcons[cat]} category-icon"></i>${cat}`;
+                    btn.onclick = () => {
+                        document.querySelectorAll('#filter-bar button').forEach(b => {
+                            b.classList.remove('btn-primary');
+                            b.style.background = '';
+                            b.style.color = '';
+                        });
+                        btn.classList.add('btn-primary');
+                        renderServices(cat);
+                    };
+                    if(cat === "All") btn.classList.add('btn-primary');
+                    filterBar.appendChild(btn);
+                });
+
+                const rContainer = document.getElementById('review-container');
+                reviews.forEach(rv => {
+                    rContainer.innerHTML += `
+                        <div class="glass-card p-8">
+                            <div class="flex gap-1 text-[--primary] text-[10px] mb-5">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="text-sm font-light italic opacity-70 mb-8 leading-relaxed">"${rv.msg}"</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-8 h-[1px] bg-[--primary]"></div>
+                                <span class="text-[10px] uppercase font-bold tracking-widest text-[--primary]">${rv.name}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                const fontDiv = document.getElementById('font-swatches');
+                fontCombos.forEach((f, i) => {
+                    fontDiv.innerHTML += `
+                        <button class="swatch-btn" onclick="applyFontCombo(${i})">
+                            <i class="fas fa-font"></i>
+                            <span>${f.name}</span>
+                        </button>`;
+                });
+
+                const buttonDiv = document.getElementById('button-swatches');
+                buttonStyles.forEach((bs, i) => {
+                    buttonDiv.innerHTML += `
+                        <button class="swatch-btn" onclick="applyButtonStyle(${i})">
+                            <i class="fas fa-circle"></i>
+                            <span>${bs.name}</span>
+                        </button>`;
+                });
+
+                const darkDiv = document.getElementById('dark-swatches');
+                const lightDiv = document.getElementById('light-swatches');
+                themes.forEach((t, i) => {
+                    const btn = `
+                        <button class="swatch-btn" onclick="applyTheme(${i})">
+                            <div style="width:16px; height:16px; background:${t.p}; border-radius:50%; border: 1px solid rgba(255,255,255,0.1)"></div>
+                            <span>${t.name}</span>
+                        </button>`;
+                    if(t.light) lightDiv.innerHTML += btn;
+                    else darkDiv.innerHTML += btn;
+                });
+
+                renderServices();
+            }
+
+            init();
         }
-
-        init();
     </script>
 </body>
 </html>
