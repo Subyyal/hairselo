@@ -7,7 +7,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Outfit:wght@200;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Outfit:wght@200;400;600&family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;600&family=Raleway:wght@300;700&family=Bebas+Neue&family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;600&family=Libre+Baskerville:wght@400;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -21,6 +21,10 @@
             --button-bg: #D4AF37;
             --button-text: #000000;
             --button-hover: #f0c959;
+            --button-radius: 0px;
+            --button-style: solid;
+            --font-heading: 'Cinzel', serif;
+            --font-body: 'Outfit', sans-serif;
         }
 
         * { scroll-behavior: smooth; }
@@ -28,12 +32,16 @@
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Outfit', sans-serif;
-            transition: background 0.4s, color 0.4s;
+            font-family: var(--font-body);
+            transition: background 0.4s, color 0.4s, font-family 0.3s;
             overflow-x: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
-        .serif { font-family: 'Cinzel', serif; }
+        .serif { font-family: var(--font-heading); }
 
         /* Carbon Fiber Layer */
         .carbon-layer {
@@ -56,6 +64,7 @@
             width: auto;
             object-fit: contain;
             transition: transform 0.3s ease;
+            pointer-events: none;
         }
 
         .logo-img:hover {
@@ -92,7 +101,48 @@
         .btn-primary {
             background-color: var(--button-bg);
             color: var(--button-text);
+            border-radius: var(--button-radius);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Button Styles */
+        .btn-solid {
+            border: none;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            border: 2px solid var(--button-bg) !important;
+            color: var(--button-bg) !important;
+        }
+
+        .btn-outline:hover {
+            background: var(--button-bg) !important;
+            color: var(--button-text) !important;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--button-bg), var(--button-hover)) !important;
+        }
+
+        .btn-glow {
+            box-shadow: 0 0 20px var(--button-bg);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 30px var(--button-bg);
+        }
+
+        .btn-3d {
+            box-shadow: 0 4px 0 var(--button-hover);
+            transform: translateY(0);
+        }
+
+        .btn-3d:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 var(--button-hover);
         }
 
         .btn-primary:hover {
@@ -103,10 +153,10 @@
         /* Theme Panel Positioning */
         #theme-sidebar {
             position: fixed;
-            right: -320px;
+            right: -380px;
             top: 0;
             height: 100vh;
-            width: 320px;
+            width: 380px;
             background: rgba(0,0,0,0.95);
             z-index: 2000;
             transition: right 0.4s;
@@ -136,15 +186,182 @@
             background: rgba(255,255,255,0.02);
         }
 
+        /* Random Generator Animation */
+        @keyframes randomize {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(180deg); }
+            75% { transform: rotate(270deg); }
+        }
+
+        .randomizing {
+            animation: randomize 0.5s ease-in-out;
+        }
+
+        /* Category Icons */
+        .category-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            margin-right: 8px;
+        }
+
         /* Hide carbon pattern in light themes */
         .light-theme .carbon-layer { display: none; }
         .light-theme .spotlight { display: none; }
+
+        /* Scrollbar Styling */
+        #theme-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #theme-sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        #theme-sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        /* BLACKHOLE PROTECTION OVERLAY */
+        #blackhole-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 999999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #blackhole-overlay.active {
+            display: flex;
+            animation: fadeInBlackhole 0.5s ease-out;
+        }
+
+        @keyframes fadeInBlackhole {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes spiralIn {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .blackhole-active * {
+            animation: spiralIn 1.5s ease-in forwards;
+        }
+
+        .warning-emoji {
+            font-size: 120px;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .warning-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            animation: pulse 1.5s infinite;
+            margin: 20px 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .warning-message {
+            font-size: 24px;
+            color: #fff;
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Test Mode Indicator */
+        #test-mode-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 255, 0, 0.2);
+            border: 2px solid #00ff00;
+            padding: 10px 20px;
+            border-radius: 8px;
+            z-index: 999998;
+            display: none;
+            font-size: 12px;
+            color: #00ff00;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #test-mode-indicator.active {
+            display: block;
+            animation: testModeBlink 2s infinite;
+        }
+
+        @keyframes testModeBlink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.5; }
+        }
+
+        /* Protection Watermark */
+        .protection-watermark {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            opacity: 0.1;
+            pointer-events: none;
+            font-size: 10px;
+            color: var(--primary);
+            z-index: 999997;
+        }
     </style>
 </head>
 <body>
 
     <div class="carbon-layer"></div>
     <div class="spotlight fixed inset-0 pointer-events-none" style="background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.6) 100%); z-index: -1;"></div>
+
+    <!-- Test Mode Indicator -->
+    <div id="test-mode-indicator">
+        <i class="fas fa-check-circle"></i> TEST MODE ACTIVE - Protection Disabled
+    </div>
+
+    <!-- Protection Watermark -->
+    <div class="protection-watermark">
+        Protected by Hair by Selo © 2026
+    </div>
+
+    <!-- Blackhole Overlay -->
+    <div id="blackhole-overlay">
+        <div class="warning-emoji">🚨</div>
+        <div class="warning-text">CHOR CHOR CHOR! 😆😆😆</div>
+        <div class="warning-message">
+            <p style="margin-bottom: 20px;">⚠️ CONTENT PROTECTION ACTIVE ⚠️</p>
+            <p style="margin-bottom: 20px;">This website is protected against unauthorized copying and scraping.</p>
+            <p style="font-size: 18px; color: #ff6b6b;">Developer tools have been detected!</p>
+            <p style="margin-top: 30px; font-size: 14px; opacity: 0.7;">If you're the owner, add <strong>?testmode=true</strong> to the URL</p>
+        </div>
+    </div>
 
     <header class="fixed w-full z-50 bg-black/80 backdrop-blur-xl border-b border-[--border]">
         <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
@@ -195,7 +412,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center mb-20 gap-8">
             <h2 class="serif text-4xl text-center md:text-left">Elite <span style="color: var(--primary)">Services</span></h2>
             
-            <div class="grid grid-cols-3 md:flex gap-3 w-full md:w-auto" id="filter-bar">
+            <div class="grid grid-cols-3 md:flex gap-3 w-full md:w-auto flex-wrap" id="filter-bar">
             </div>
         </div>
 
@@ -249,8 +466,31 @@
     <div id="theme-sidebar">
         <div class="p-6">
             <div class="flex justify-between items-center mb-10">
-                <h3 class="serif text-lg text-[--primary]">Theme Presets</h3>
+                <h3 class="serif text-lg text-[--primary]">Style Customizer</h3>
                 <button onclick="toggleThemePanel()" class="text-xl">&times;</button>
+            </div>
+
+            <!-- Random Generator Section -->
+            <div class="mb-10 p-5 bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-lg">
+                <h4 class="text-[10px] uppercase opacity-60 mb-4 tracking-widest text-center">
+                    <i class="fas fa-wand-magic-sparkles"></i> Random Style Generator
+                </h4>
+                <button onclick="generateRandomStyle()" id="random-btn" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 text-[11px] uppercase tracking-wider hover:from-purple-700 hover:to-pink-700 transition-all rounded-lg">
+                    <i class="fas fa-shuffle"></i> Generate Random Style
+                </button>
+                <p class="text-[9px] text-center mt-3 opacity-40">Creates unique combinations instantly</p>
+            </div>
+
+            <!-- Font Combinations -->
+            <div class="mb-8">
+                <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Font Combinations</h4>
+                <div id="font-swatches"></div>
+            </div>
+
+            <!-- Button Styles -->
+            <div class="mb-8">
+                <h4 class="text-[9px] uppercase opacity-40 mb-4 tracking-widest">Button Styles</h4>
+                <div id="button-swatches"></div>
             </div>
 
             <div class="mb-8">
@@ -268,7 +508,139 @@
     </div>
 
     <script>
-        // DATA OBJECTS
+        // ============================================
+        // PROTECTION SYSTEM
+        // ============================================
+        
+        // Check if test mode is enabled
+        const urlParams = new URLSearchParams(window.location.search);
+        const isTestMode = urlParams.get('testmode') === 'true';
+        
+        if (isTestMode) {
+            document.getElementById('test-mode-indicator').classList.add('active');
+            console.log('%c🔓 TEST MODE ACTIVE - All protections disabled', 'color: #00ff00; font-size: 16px; font-weight: bold;');
+        }
+
+        let devtoolsOpen = false;
+
+        function triggerBlackhole() {
+            if (isTestMode) {
+                console.log('%c⚠️ Blackhole triggered but TEST MODE is active', 'color: orange; font-size: 14px;');
+                return;
+            }
+            
+            document.body.classList.add('blackhole-active');
+            setTimeout(() => {
+                document.getElementById('blackhole-overlay').classList.add('active');
+            }, 1000);
+            
+            // Disable the page
+            document.body.style.pointerEvents = 'none';
+        }
+
+        // Method 1: DevTools Detection via console
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                if (!isTestMode && !devtoolsOpen) {
+                    devtoolsOpen = true;
+                    triggerBlackhole();
+                }
+                return 'devtools-detector';
+            }
+        });
+
+        // Method 2: Window size detection (when devtools opens on side)
+        let windowWidth = window.outerWidth - window.innerWidth;
+        let windowHeight = window.outerHeight - window.innerHeight;
+        
+        setInterval(() => {
+            if (!isTestMode) {
+                const widthDiff = window.outerWidth - window.innerWidth;
+                const heightDiff = window.outerHeight - window.innerHeight;
+                
+                if (Math.abs(widthDiff - windowWidth) > 200 || Math.abs(heightDiff - windowHeight) > 200) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        triggerBlackhole();
+                    }
+                }
+            }
+        }, 1000);
+
+        // Method 3: Debugger trap
+        setInterval(() => {
+            if (!isTestMode) {
+                const before = new Date().getTime();
+                debugger;
+                const after = new Date().getTime();
+                if (after - before > 100) {
+                    if (!devtoolsOpen) {
+                        devtoolsOpen = true;
+                        triggerBlackhole();
+                    }
+                }
+            }
+        }, 1000);
+
+        // Check console regularly
+        setInterval(() => {
+            if (!isTestMode) {
+                console.log(element);
+                console.clear();
+            }
+        }, 1000);
+
+        if (!isTestMode) {
+            // Disable right-click
+            document.addEventListener('contextmenu', e => e.preventDefault());
+
+            // Disable keyboard shortcuts
+            document.addEventListener('keydown', e => {
+                // F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+Shift+C
+                if (
+                    e.keyCode === 123 || // F12
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 73) || // Ctrl+Shift+I
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 74) || // Ctrl+Shift+J
+                    (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
+                    (e.ctrlKey && e.keyCode === 83) || // Ctrl+S
+                    (e.ctrlKey && e.shiftKey && e.keyCode === 67) || // Ctrl+Shift+C
+                    (e.ctrlKey && e.keyCode === 67) || // Ctrl+C
+                    (e.ctrlKey && e.keyCode === 65) // Ctrl+A
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Disable drag and drop
+            document.addEventListener('dragstart', e => e.preventDefault());
+
+            // Add console warning
+            console.log('%c⚠️ WARNING - CONTENT PROTECTED', 'color: red; font-size: 24px; font-weight: bold;');
+            console.log('%c🚨 Unauthorized copying or scraping is prohibited!', 'color: orange; font-size: 16px;');
+            console.log('%c😆 CHOR CHOR CHOR!', 'color: yellow; font-size: 20px; font-weight: bold;');
+            console.log('%cAdd ?testmode=true to URL to enable testing', 'color: green; font-size: 12px;');
+        } else {
+            // In test mode, show helpful message
+            console.log('%c✅ Welcome Developer!', 'color: #00ff00; font-size: 20px; font-weight: bold;');
+            console.log('%c🔧 Test mode is active. All protections are disabled for testing.', 'color: #00ff00; font-size: 14px;');
+            console.log('%c📱 Test responsive design freely!', 'color: #00ffff; font-size: 14px;');
+        }
+
+        // ============================================
+        // MAIN SITE CODE
+        // ============================================
+
+        const categoryIcons = {
+            "All": "fa-grid-2",
+            "Hair": "fa-scissors",
+            "Beard": "fa-face-smile-beam",
+            "Skin": "fa-droplet",
+            "Grooming": "fa-gem",
+            "Spa": "fa-spa"
+        };
+
         const categories = ["All", "Hair", "Beard", "Skin", "Grooming", "Spa"];
         
         const services = [
@@ -290,6 +662,32 @@
             { name: "Bilal K.", msg: "Top tier aesthetic. Truly out of the box." },
             { name: "Saad Sheikh", msg: "Elite environment. Selo is a master of his craft." },
             { name: "Mustafa Q.", msg: "The facial treatment is highly recommended." }
+        ];
+
+        const fontCombos = [
+            { name: "Classic Elegance", heading: "'Cinzel', serif", body: "'Outfit', sans-serif" },
+            { name: "Modern Luxury", heading: "'Playfair Display', serif", body: "'Montserrat', sans-serif" },
+            { name: "Clean Contemporary", heading: "'Raleway', sans-serif", body: "'Inter', sans-serif" },
+            { name: "Bold Statement", heading: "'Bebas Neue', sans-serif", body: "'Poppins', sans-serif" },
+            { name: "Refined Traditional", heading: "'Cormorant Garamond', serif", body: "'Raleway', sans-serif" },
+            { name: "Sleek Minimalist", heading: "'Montserrat', sans-serif", body: "'Inter', sans-serif" },
+            { name: "Timeless Classic", heading: "'Libre Baskerville', serif", body: "'Outfit', sans-serif" },
+            { name: "Urban Chic", heading: "'Bebas Neue', sans-serif", body: "'Montserrat', sans-serif" },
+            { name: "Sophisticated Edge", heading: "'Playfair Display', serif", body: "'Poppins', sans-serif" },
+            { name: "Executive Style", heading: "'Cormorant Garamond', serif", body: "'Inter', sans-serif" }
+        ];
+
+        const buttonStyles = [
+            { name: "Solid Fill", radius: "0px", className: "btn-solid" },
+            { name: "Rounded", radius: "8px", className: "btn-solid" },
+            { name: "Pill Shape", radius: "50px", className: "btn-solid" },
+            { name: "Outline", radius: "0px", className: "btn-outline" },
+            { name: "Outline Rounded", radius: "8px", className: "btn-outline" },
+            { name: "Gradient", radius: "8px", className: "btn-gradient" },
+            { name: "Glow Effect", radius: "8px", className: "btn-glow" },
+            { name: "3D Effect", radius: "6px", className: "btn-3d" },
+            { name: "Sharp Edges", radius: "0px", className: "btn-solid" },
+            { name: "Soft Rounded", radius: "12px", className: "btn-solid" }
         ];
 
         const themes = [
@@ -358,7 +756,9 @@
             { name: "Champagne", p: "#d4a373", b: "#fdf9f4", t: "#2d3436", c: "#ffffff", btnBg: "#d4a373", btnText: "#ffffff", btnHover: "#dfb891", light: true }
         ];
 
-        // LOGIC FUNCTIONS
+        let currentButtonStyle = 0;
+        let currentFontCombo = 0;
+
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('active');
         }
@@ -384,7 +784,70 @@
             else document.body.classList.remove('light-theme');
         }
 
-        function resetTheme() { applyTheme(0); }
+        function applyFontCombo(idx) {
+            currentFontCombo = idx;
+            const f = fontCombos[idx];
+            const root = document.documentElement.style;
+            root.setProperty('--font-heading', f.heading);
+            root.setProperty('--font-body', f.body);
+        }
+
+        function applyButtonStyle(idx) {
+            currentButtonStyle = idx;
+            const bs = buttonStyles[idx];
+            const root = document.documentElement.style;
+            root.setProperty('--button-radius', bs.radius);
+            
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.classList.remove('btn-solid', 'btn-outline', 'btn-gradient', 'btn-glow', 'btn-3d');
+                btn.classList.add(bs.className);
+            });
+        }
+
+        function generateRandomStyle() {
+            const btn = document.getElementById('random-btn');
+            btn.classList.add('randomizing');
+            
+            setTimeout(() => {
+                const randomTheme = Math.floor(Math.random() * themes.length);
+                applyTheme(randomTheme);
+                
+                const randomFont = Math.floor(Math.random() * fontCombos.length);
+                applyFontCombo(randomFont);
+                
+                const randomButton = Math.floor(Math.random() * buttonStyles.length);
+                applyButtonStyle(randomButton);
+                
+                btn.classList.remove('randomizing');
+                
+                showNotification(`Random Style Applied: ${themes[randomTheme].name} + ${fontCombos[randomFont].name} + ${buttonStyles[randomButton].name}`);
+            }, 500);
+        }
+
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.className = 'fixed top-24 right-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-4 rounded-lg shadow-2xl z-[9999] max-w-sm';
+            notif.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-check-circle text-xl"></i>
+                    <p class="text-sm font-medium">${message}</p>
+                </div>
+            `;
+            document.body.appendChild(notif);
+            
+            setTimeout(() => {
+                notif.style.opacity = '0';
+                notif.style.transition = 'opacity 0.3s';
+                setTimeout(() => notif.remove(), 300);
+            }, 3000);
+        }
+
+        function resetTheme() { 
+            applyTheme(0);
+            applyFontCombo(0);
+            applyButtonStyle(0);
+            showNotification('Reset to Original Style');
+        }
 
         function renderServices(filter = "All") {
             const container = document.getElementById('service-container');
@@ -405,12 +868,11 @@
         }
 
         function init() {
-            // Render Filter Bar
             const filterBar = document.getElementById('filter-bar');
             categories.forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = "border border-white/10 px-4 py-3 text-[9px] uppercase tracking-widest hover:border-[--primary] transition";
-                btn.innerText = cat;
+                btn.innerHTML = `<i class="fas ${categoryIcons[cat]} category-icon"></i>${cat}`;
                 btn.onclick = () => {
                     document.querySelectorAll('#filter-bar button').forEach(b => {
                         b.classList.remove('btn-primary');
@@ -424,7 +886,6 @@
                 filterBar.appendChild(btn);
             });
 
-            // Render Reviews
             const rContainer = document.getElementById('review-container');
             reviews.forEach(rv => {
                 rContainer.innerHTML += `
@@ -441,7 +902,24 @@
                 `;
             });
 
-            // Render Themes Swatches
+            const fontDiv = document.getElementById('font-swatches');
+            fontCombos.forEach((f, i) => {
+                fontDiv.innerHTML += `
+                    <button class="swatch-btn" onclick="applyFontCombo(${i})">
+                        <i class="fas fa-font"></i>
+                        <span>${f.name}</span>
+                    </button>`;
+            });
+
+            const buttonDiv = document.getElementById('button-swatches');
+            buttonStyles.forEach((bs, i) => {
+                buttonDiv.innerHTML += `
+                    <button class="swatch-btn" onclick="applyButtonStyle(${i})">
+                        <i class="fas fa-circle"></i>
+                        <span>${bs.name}</span>
+                    </button>`;
+            });
+
             const darkDiv = document.getElementById('dark-swatches');
             const lightDiv = document.getElementById('light-swatches');
             themes.forEach((t, i) => {
